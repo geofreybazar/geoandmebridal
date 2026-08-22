@@ -5,7 +5,6 @@ import type { Session } from "next-auth";
 
 import { Button } from "@/components/ui/button";
 import { User } from "lucide-react";
-import { paragraph } from "@/utils/fonts/fonts";
 
 import { SheetFooter } from "@/components/ui/sheet";
 
@@ -17,17 +16,19 @@ interface FooterProps {
 const Footer = ({ session, setOpen }: FooterProps) => {
   return (
     <SheetFooter className='pt-0'>
-      <Button
-        variant='outline'
-        className='
-    w-full
-    border-[#C9B38C]
-    text-[#9C8577]
-    hover:bg-[#F8F3EC]
-  '
-      >
-        Book Appointment
-      </Button>
+      <Link href='/appointment' onClick={() => setOpen(false)}>
+        <Button
+          variant='outline'
+          className='
+        w-full
+        border-[#C9B38C]
+        text-[#9C8577]
+        hover:bg-[#F8F3EC]
+      '
+        >
+          Book Appointment
+        </Button>
+      </Link>
 
       {session ? (
         <Button
