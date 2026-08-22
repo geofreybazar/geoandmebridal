@@ -53,6 +53,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           token.lastName = client.lastName;
           token.clientId = client._id;
         } else {
+          token.isNewUser = true;
           token.firstName = profile?.given_name;
           token.lastName = profile?.family_name;
         }
