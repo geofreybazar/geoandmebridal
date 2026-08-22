@@ -83,6 +83,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           );
         }
 
+        token.provider = account.provider;
         return token;
       }
 
