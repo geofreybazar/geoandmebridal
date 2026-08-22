@@ -64,13 +64,15 @@ const BrideList = () => {
 
               <div className='absolute inset-0 flex flex-col justify-end p-6 text-offwhite'>
                 <h3 className={`${title.className} text-2xl capitalize`}>
-                  {bride.bridesName}
+                  {/* get only 1st name */}
+                  {bride.bridesName.split(" ")[0]}
                 </h3>
 
-                <p className='text-xs tracking-wide opacity-80 mt-1'>
+                {/* removing wedding date year */}
+                {/* <p className='text-xs tracking-wide opacity-80 mt-1'>
                   {new Date(bride.weddingDate).getFullYear()}
                   {bride.details?.venue ? ` • ${bride.details.venue}` : ""}
-                </p>
+                </p> */}
               </div>
             </div>
           </Link>
