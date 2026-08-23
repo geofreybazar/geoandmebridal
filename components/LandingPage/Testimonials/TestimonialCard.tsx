@@ -40,7 +40,9 @@ const TestimonialCard = ({
 
         {/* Footer */}
         <div className='border-t border-[#EEE7E2] pt-4'>
-          <h3 className='text-base font-semibold text-[#2F2825]'>{name}</h3>
+          <h3 className='text-base font-semibold text-[#2F2825]'>
+            {name.split(" ")[0]}
+          </h3>
 
           {role && (
             <p className='mt-1 text-xs uppercase tracking-[0.15em] text-[#A38A7A]'>
