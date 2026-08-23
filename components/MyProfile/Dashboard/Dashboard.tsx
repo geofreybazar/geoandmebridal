@@ -11,10 +11,15 @@ import AppointmentsOverview from "./AppointmentOverview/AppointmentOverview";
 
 const Dashboard = async () => {
   const session = await auth();
-  const userId = session?.user.clientId;
+
+  if (!session?.user) {
+    redirect("/login");
+  }
+
+  const userId = session.user.clientId;
 
   if (!userId) {
-    redirect("/");
+    redirect("/signup");
   }
 
   const userProfile = await GetClientUserProfile(userId);

@@ -60,8 +60,10 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 
         if (account.provider === "google") {
           token.image = profile?.picture;
-        } else if (account.provider === "facebook") {
-          token.image = profile?.picture.data.url;
+        }
+
+        if (account.provider === "facebook") {
+          token.image = profile?.picture?.data?.url;
         }
 
         if (account.provider === "google") {
