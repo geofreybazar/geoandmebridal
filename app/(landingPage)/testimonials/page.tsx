@@ -83,7 +83,7 @@ const TestimonialsPage = async () => {
                     <h2
                       className={`${title.className} text-3xl text-[#2F2825] capitalize`}
                     >
-                      {testimonial.brideId.bridesName}
+                      {testimonial.brideId.bridesName.split(" ")[0]}
                     </h2>
                   </div>
                 </div>
