@@ -1,4 +1,5 @@
 export const orderStatus: Record<string, string> = {
+  on_hold: "Payment under review",
   confirmed: "Confirmed Order",
   preparing: "Preparing Order",
   ready_for_pickup: "Ready for Pickup",
