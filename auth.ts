@@ -4,7 +4,7 @@ import Google from "next-auth/providers/google";
 
 import type { Provider } from "next-auth/providers";
 import "next-auth/jwt";
-import { ClientUserLogin } from "./services/clients";
+import { ClientUserLogin } from "./services/clientLogin";
 
 const providers: Provider[] = [
   Facebook({

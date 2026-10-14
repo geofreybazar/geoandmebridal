@@ -1,4 +1,5 @@
 import { DeliveryDetailsOutput } from "@/zodSchemas/cartCheckoutForm";
+import { clientAuthHeaders } from "@/lib/backendAuth";
 
 const service_route = process.env.NEXT_PUBLIC_CHECKOUT_ROUTE;
 const API_URL =
@@ -31,6 +32,7 @@ export const CartCheckout = async (
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        ...(await clientAuthHeaders()),
       },
       body: JSON.stringify(data),
     });

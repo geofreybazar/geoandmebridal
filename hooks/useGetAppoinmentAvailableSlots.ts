@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { GetAvailableTimeSlots } from "@/services/appointment";
+import { GetAvailableTimeSlots } from "@/services/appointmentSlots";
 
 const useGetAppoinmentAvailableSlots = (date: Date) => {
   const {

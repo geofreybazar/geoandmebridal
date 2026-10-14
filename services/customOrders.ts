@@ -1,5 +1,6 @@
 import { CustomOrder } from "@/types/customOrders";
 import { CreatePaymongoPaymentRequestType } from "@/zodSchemas/customOrderPayment";
+import { clientAuthHeaders } from "@/lib/backendAuth";
 
 const service_route = process.env.NEXT_PUBLIC_CUSTOM_ORDER_ROUTE;
 const API_URL =
@@ -13,7 +14,8 @@ export const GetCustomOrder = async (
   try {
     const response = await fetch(`${API_URL}/${customOrderId}`, {
       method: "GET",
-      //   next: { revalidate: 86400 },
+      cache: "no-store",
+      headers: await clientAuthHeaders(),
     });
 
     if (!response.ok) {
@@ -41,7 +43,8 @@ export const GetClientCustomOrder = async (
       `${API_URL}/clientorders/${clientId}/${status}`,
       {
         method: "GET",
-        //   next: { revalidate: 86400 },
+        cache: "no-store",
+        headers: await clientAuthHeaders(),
       },
     );
 
@@ -69,6 +72,7 @@ export const CustomOrderRequestPayment = async (
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        ...(await clientAuthHeaders()),
       },
       body: JSON.stringify(data),
     });

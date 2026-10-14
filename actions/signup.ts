@@ -3,9 +3,30 @@
 import { z } from "zod";
 import { ClientUserSignup } from "@/services/clients";
 import { clientSignupSchema, ClientSignupType } from "@/zodSchemas/signupForm";
+import { auth } from "@/auth";
 
 export const signupUser = async (data: ClientSignupType) => {
-  const parsed = clientSignupSchema.safeParse(data);
+  // Email and provider come from the verified Google/Facebook sign-in,
+  // not from the form
+  const session = await auth();
+  if (!session?.user?.email || !session.user.provider) {
+    return {
+      success: false,
+      error: "Please sign in with Google or Facebook first.",
+    };
+  }
+  if (session.user.clientId) {
+    return {
+      success: false,
+      error: "You already have an account.",
+    };
+  }
+
+  const parsed = clientSignupSchema.safeParse({
+    ...data,
+    email: session.user.email,
+    provider: session.user.provider,
+  });
 
   // Validation failed
   if (!parsed.success) {

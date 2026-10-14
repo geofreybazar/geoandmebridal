@@ -3,6 +3,10 @@ import {
   BookAppointmentType,
   RescheduleAppointmentType,
 } from "@/zodSchemas/appointment";
+import {
+  clientAuthHeaders,
+  optionalClientAuthHeaders,
+} from "@/lib/backendAuth";
 
 const service_route = process.env.NEXT_PUBLIC_APPOINTMENT_ROUTE;
 const API_URL =
@@ -11,10 +15,12 @@ const API_URL =
     : `http://localhost:3005/${service_route}`;
 
 export const AddNewAppointment = async (data: BookAppointmentType) => {
+  // Signed-in clients book as themselves; guests book without an account
   const response = await fetch(`${API_URL}/`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
+      ...(await optionalClientAuthHeaders()),
     },
     body: JSON.stringify(data),
   });
@@ -54,36 +60,10 @@ export const GetClientAppointments = async (
 ): Promise<Appointment[]> => {
   const response = await fetch(`${API_URL}/clientappointments/${clientId}`, {
     method: "GET",
+    cache: "no-store",
     headers: {
       "Content-Type": "application/json",
-    },
-    next: {
-      //  revalidate: 86400,
-      tags: ["appopintments", clientId],
-    },
-  });
-
-  const result = await response.json().catch(() => null);
-
-  if (!response.ok) {
-    const msg = result?.message || result?.error || `HTTP ${response.status}`;
-    throw new Error(msg);
-  }
-
-  return await result;
-};
-
-export const GetAvailableTimeSlots = async (
-  selectedDate: Date,
-): Promise<string[]> => {
-  const response = await fetch(`${API_URL}/availabletimes/${selectedDate}`, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    next: {
-      //  revalidate: 86400,
-      tags: ["availabletimes"],
+      ...(await clientAuthHeaders()),
     },
   });
 
@@ -104,6 +84,7 @@ export const RescheduleAppointment = async (
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",
+      ...(await clientAuthHeaders()),
     },
     body: JSON.stringify(data),
   });

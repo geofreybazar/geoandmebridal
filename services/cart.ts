@@ -1,4 +1,5 @@
 import { CartType, Items } from "@/types/cart";
+import { clientAuthHeaders } from "@/lib/backendAuth";
 
 const service_route = process.env.NEXT_PUBLIC_CART_ROUTE;
 
@@ -10,7 +11,8 @@ const API_URL =
 export const GetClientCart = async (clientId: string): Promise<CartType> => {
   const response = await fetch(`${API_URL}/${clientId}`, {
     method: "GET",
-    next: { revalidate: 86400, tags: ["cart"] },
+    cache: "no-store",
+    headers: await clientAuthHeaders(),
   });
 
   const data = await response.json();
@@ -33,6 +35,7 @@ export const AddItemToCart = async (data: Items): Promise<CartType> => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        ...(await clientAuthHeaders()),
       },
       body: JSON.stringify(data),
     });
@@ -65,6 +68,7 @@ export const RemoveItemFromCart = async ({
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
+        ...(await clientAuthHeaders()),
       },
       body: JSON.stringify({ cartId, productSku }),
     });

@@ -1,4 +1,5 @@
 import { PaymentRequest } from "@/types/paymentRequest";
+import { clientAuthHeaders } from "@/lib/backendAuth";
 
 const service_route = process.env.NEXT_PUBLIC_PAYMENT_REQUEST_ROUTE;
 const API_URL =
@@ -12,8 +13,10 @@ export const GetClientPayments = async (
   try {
     const response = await fetch(`${API_URL}/payments/${clientId}`, {
       method: "GET",
+      cache: "no-store",
       headers: {
         "Content-Type": "application/json",
+        ...(await clientAuthHeaders()),
       },
     });
 
@@ -37,8 +40,10 @@ export async function GetPaymentRequest(id: string): Promise<PaymentRequest> {
   try {
     const response = await fetch(`${API_URL}/${id}`, {
       method: "GET",
+      cache: "no-store",
       headers: {
         "Content-Type": "application/json",
+        ...(await clientAuthHeaders()),
       },
       // next: { revalidate: 86400 },
     });
@@ -65,8 +70,10 @@ export async function GetPendingPaymentRequest(
   try {
     const response = await fetch(`${API_URL}/pending/${customOrderid}`, {
       method: "GET",
+      cache: "no-store",
       headers: {
         "Content-Type": "application/json",
+        ...(await clientAuthHeaders()),
       },
       // next: { revalidate: 86400 },
     });

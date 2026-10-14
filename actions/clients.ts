@@ -4,6 +4,7 @@ import { z } from "zod";
 
 import { revalidatePath } from "next/cache";
 import { DeactivateAccount, UpdateClientProfile } from "@/services/clients";
+import { requireClientId } from "@/lib/backendAuth";
 
 import {
   updateClientContactSchema,
@@ -15,8 +16,9 @@ type State = {
   message?: string;
 };
 
+// The first argument is kept for existing callers; the signed-in client is used
 export const updateClientProfile = async (
-  clientId: string,
+  _clientId: string,
   data: UpdateClientContactType,
 ) => {
   const parsed = updateClientContactSchema.safeParse(data);
@@ -30,7 +32,10 @@ export const updateClientProfile = async (
   }
 
   try {
-    const result = await UpdateClientProfile(clientId, parsed.data);
+    const result = await UpdateClientProfile(
+      await requireClientId(),
+      parsed.data,
+    );
     revalidatePath(`/myprofile/settings`);
     return {
       success: true,
@@ -47,10 +52,8 @@ export const updateClientProfile = async (
 
 export const deactivateAccount = async (_: State, formData: FormData) => {
   try {
-    const userId = formData.get("userId") as string;
-
-    // call your backend/service here
-    await DeactivateAccount(userId);
+    // Always the signed-in client, whatever the form says
+    await DeactivateAccount(await requireClientId());
 
     return {
       success: true,

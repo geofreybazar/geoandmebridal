@@ -1,4 +1,5 @@
 import { ShopOrder } from "@/types/shopOrders";
+import { clientAuthHeaders } from "@/lib/backendAuth";
 
 const service_route = process.env.NEXT_PUBLIC_SHOP_ORDER_ROUTE;
 
@@ -16,7 +17,8 @@ export const GetClientShopOrder = async (
       `${API_URL}/clientshoporders/${clientId}/${status}`,
       {
         method: "GET",
-        //   next: { revalidate: 86400 },
+        cache: "no-store",
+        headers: await clientAuthHeaders(),
       },
     );
 

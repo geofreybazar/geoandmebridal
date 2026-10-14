@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { GetClientCart } from "@/services/cart";
+import { getCart } from "@/actions/cart";
 
 const useGetClientCart = (clientId: string) => {
   const {
@@ -10,7 +10,12 @@ const useGetClientCart = (clientId: string) => {
     error,
   } = useQuery({
     queryKey: ["cartItems", clientId],
-    queryFn: () => GetClientCart(clientId),
+    // Server action: the cart of the signed-in client
+    queryFn: async () => {
+      const res = await getCart();
+      if (!res.success) throw new Error(res.error);
+      return res.result;
+    },
     enabled: !!clientId,
   });
 

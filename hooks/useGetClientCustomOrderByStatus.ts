@@ -1,5 +1,5 @@
 import { useSuspenseQuery } from "@tanstack/react-query";
-import { GetClientCustomOrder } from "@/services/customOrders";
+import { getMyCustomOrders } from "@/actions/customOrders";
 
 const useGetClientCustomOrderByStatus = (status: string, clientId: string) => {
   const {
@@ -9,8 +9,13 @@ const useGetClientCustomOrderByStatus = (status: string, clientId: string) => {
     isError,
     error,
   } = useSuspenseQuery({
-    queryKey: ["customOrders", status],
-    queryFn: () => GetClientCustomOrder(status, clientId),
+    queryKey: ["customOrders", status, clientId],
+    // Server action: orders of the signed-in client (clientId kept for callers)
+    queryFn: async () => {
+      const res = await getMyCustomOrders(status);
+      if (!res.success) throw new Error(res.error);
+      return res.result!;
+    },
   });
 
   return {
