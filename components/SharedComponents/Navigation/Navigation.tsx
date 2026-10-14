@@ -9,7 +9,6 @@ import MobileMode from "./MobileMode/MobileMode";
 const Navigation = () => {
   const links = [
     { link: "/aboutus", text: "Our Story" },
-    // { link: "/contact", text: "Contact" },
     { link: "/collection", text: "Collection" },
     { link: "/brides", text: "Brides" },
     { link: "/shop", text: "Shop" },
