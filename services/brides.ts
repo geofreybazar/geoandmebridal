@@ -29,7 +29,7 @@ export async function GetBrides(
 export async function GetBride(id: string): Promise<Bride> {
   const data = await fetch(`${API_URL}/getbride/${id}`, {
     method: "GET",
-    next: { revalidate: 86400 },
+    next: { revalidate: 86400, tags: ["brides"] },
   });
 
   if (!data.ok) {

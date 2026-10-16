@@ -86,7 +86,7 @@ export async function GetProduct(slug: string): Promise<ProductType> {
     method: "GET",
     next: {
       // revalidate: 86400,
-      tags: ["product", slug],
+      tags: ["products"],
     },
   });
 

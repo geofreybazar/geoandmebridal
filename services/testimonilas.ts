@@ -13,7 +13,7 @@ export const GetTestimonials = async (): Promise<Testimonials[]> => {
     const response = await fetch(`${API_URL}`, {
       method: "GET",
       next: {
-        tags: ["Testimonials"],
+        tags: ["testimonials"],
       },
       headers: {
         "Content-Type": "application/json",

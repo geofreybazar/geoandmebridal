@@ -27,7 +27,7 @@ export async function GetCollectionsImages(
 ): Promise<CollectionType> {
   const data = await fetch(`${API_URL}/getcollection/${id}`, {
     method: "GET",
-    next: { revalidate: 86400 },
+    next: { revalidate: 86400, tags: ["collections"] },
   });
 
   if (!data.ok) {

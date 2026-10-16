@@ -1,6 +1,5 @@
 "use server";
 
-import { revalidateTag } from "next/cache";
 
 import {
   AddNewAppointment,
@@ -54,7 +53,6 @@ export const rescheduleAppointmentAction = async (
 
   try {
     const rescheduleAppointment = await RescheduleAppointment(appointmentData);
-    revalidateTag("appointments", data.clientId);
 
     return {
       success: true,
