@@ -8,9 +8,12 @@ const API_URL =
     ? `https://geoandmebridalbackend.onrender.com/${service_route}`
     : `http://localhost:3005/${service_route}`;
 
-export const GetTestimonials = async (): Promise<Testimonials[]> => {
+// featuredOnly: the home page shows only testimonials marked Featured in the admin
+export const GetTestimonials = async (
+  featuredOnly = false,
+): Promise<Testimonials[]> => {
   try {
-    const response = await fetch(`${API_URL}`, {
+    const response = await fetch(`${API_URL}${featuredOnly ? "?featured=true" : ""}`, {
       method: "GET",
       next: {
         tags: ["testimonials"],

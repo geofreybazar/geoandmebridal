@@ -5,7 +5,7 @@ import TestimonialCard from "./TestimonialCard";
 import { GetTestimonials } from "@/services/testimonilas";
 
 const Testimonials = async () => {
-  const testimonials = await GetTestimonials();
+  const testimonials = await GetTestimonials(true);
 
   return (
     <section className='py-16 lg:py-24 px-6 xl:px-36 2xl:px-52 bg-linear-to-b from-ivoryWhite to-champagneBeige'>
