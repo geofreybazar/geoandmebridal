@@ -1,0 +1,89 @@
+# CI (P2-1): type-check and secret scan. Runs on pushes to main and on pull
+# requests. No `next build` (prerendering calls the production backend) and no
+# lint yet (it fails today, P2-2). Needs no secrets.
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  type-check:
+    name: Type-check
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      - name: Install
+        run: npm ci
+
+      # next-env.d.ts (image imports) and route types are generated, not in git;
+      # typegen writes them without building or calling the backend
+      - name: Generate Next.js types
+        run: npx next typegen
+
+      - name: Type-check
+        run: npx tsc --noEmit
+
+      # Report only for now (TESTING.md §6)
+      - name: npm audit (not blocking)
+        continue-on-error: true
+        run: npm audit --omit=dev --audit-level=high
+
+  secret-scan:
+    name: Secret scan (new commits)
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      # Pinned release, checked against its SHA-256
+      - name: Install gitleaks
+        env:
+          GITLEAKS_VERSION: 8.30.1
+          GITLEAKS_SHA256: 551f6fc83ea457d62a0d98237cbad105af8d557003051f41f3e7ca7b3f2470eb
+        run: |
+          curl -sSLo gitleaks.tar.gz "https://github.com/gitleaks/gitleaks/releases/download/v${GITLEAKS_VERSION}/gitleaks_${GITLEAKS_VERSION}_linux_x64.tar.gz"
+          echo "${GITLEAKS_SHA256}  gitleaks.tar.gz" | sha256sum -c -
+          tar -xzf gitleaks.tar.gz gitleaks
+          rm gitleaks.tar.gz
+
+      # Only the commits of this push or pull request: the first commit still
+      # holds the old .env (docs/SECURITY_REMEDIATION_PLAN.md), so full history
+      # would always fail. Findings are redacted in the log.
+      - name: Scan
+        env:
+          EVENT: ${{ github.event_name }}
+          BEFORE: ${{ github.event.before }}
+          PR_BASE: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: |
+          if [ "$EVENT" = "pull_request" ]; then
+            RANGE="$PR_BASE..$HEAD_SHA"
+          elif [ -n "$BEFORE" ] && ! [[ "$BEFORE" =~ ^0+$ ]] && git cat-file -e "$BEFORE^{commit}" 2>/dev/null; then
+            RANGE="$BEFORE..$HEAD_SHA"
+          else
+            echo "Previous commit unknown (new branch or force push): scanning the last commit only"
+            RANGE="-1 $HEAD_SHA"
+          fi
+          echo "Scanning $RANGE"
+          ./gitleaks git --redact --verbose --no-banner --exit-code 1 --log-opts="$RANGE" .
