@@ -83,7 +83,7 @@ const CheckOutPage = () => {
 
       // Checkout successful
       if (result.success) {
-        if (result.checkoutUrl) window.location.href = result.checkoutUrl;
+        if (result.checkoutUrl) window.location.assign(result.checkoutUrl);
         return;
       }
 
@@ -123,7 +123,7 @@ const CheckOutPage = () => {
 
           return;
       }
-    } catch (error: unknown) {
+    } catch {
       methods.setError("root", {
         message: "Payment request failed.",
       });

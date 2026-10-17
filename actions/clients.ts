@@ -50,7 +50,7 @@ export const updateClientProfile = async (
   }
 };
 
-export const deactivateAccount = async (_: State, formData: FormData) => {
+export const deactivateAccount = async (_: State, _formData: FormData) => {
   try {
     // Always the signed-in client, whatever the form says
     await DeactivateAccount(await requireClientId());

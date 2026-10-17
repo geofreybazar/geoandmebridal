@@ -8,7 +8,7 @@ const Items = ({ order }: { order: ShopOrder }) => {
       </p>
 
       <ul className='space-y-1 text-sm'>
-        {order.items.map((item: any) => (
+        {order.items.map((item) => (
           <li key={item._id} className='flex justify-between'>
             <span>
               {item.name} ×{item.quantity}

@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useSession } from "next-auth/react";
 import useRemoveItemFromCart from "@/hooks/cart/useRemoveItemFromCart";
 import Image from "next/image";
 import { Loader2, Trash2 } from "lucide-react";
@@ -12,7 +11,6 @@ interface CartItemsProps {
 }
 
 const CartItems = ({ cartItems, cartId }: CartItemsProps) => {
-  const { data: session, status } = useSession();
   const [removingSku, setRemovingSku] = useState<string | null>(null);
   const [errorSku, setErrorSku] = useState<string | null>(null);
 
@@ -31,7 +29,7 @@ const CartItems = ({ cartItems, cartId }: CartItemsProps) => {
         cartId,
       };
       await removeItemFromCart(data);
-    } catch (error) {
+    } catch {
       setErrorSku(sku);
     } finally {
       setRemovingSku(null);

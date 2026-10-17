@@ -4,7 +4,7 @@ import { RescheduleAppointmentType } from "@/zodSchemas/appointment";
 import { Controller, useFormContext } from "react-hook-form";
 
 const Reason = () => {
-  const { control, setValue } = useFormContext<RescheduleAppointmentType>();
+  const { control } = useFormContext<RescheduleAppointmentType>();
 
   return (
     <Controller

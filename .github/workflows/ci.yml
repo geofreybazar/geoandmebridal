@@ -1,6 +1,6 @@
-# CI (P2-1): type-check and secret scan. Runs on pushes to main and on pull
-# requests. No `next build` (prerendering calls the production backend) and no
-# lint yet (it fails today, P2-2). Needs no secrets.
+# CI (P2-1, lint since P2-2): type-check, lint and secret scan. Runs on pushes
+# to main and on pull requests. No `next build` (prerendering calls the
+# production backend). Needs no secrets.
 name: CI
 
 on:
@@ -17,7 +17,7 @@ concurrency:
 
 jobs:
   type-check:
-    name: Type-check
+    name: Type-check and lint
     runs-on: ubuntu-24.04
     timeout-minutes: 15
     steps:
@@ -40,6 +40,9 @@ jobs:
 
       - name: Type-check
         run: npx tsc --noEmit
+
+      - name: Lint
+        run: npm run lint
 
       # Report only for now (TESTING.md §6)
       - name: npm audit (not blocking)

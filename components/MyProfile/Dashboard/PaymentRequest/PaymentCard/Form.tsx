@@ -51,7 +51,7 @@ const Form = ({ user, customorder, paymentRequest }: FormProps) => {
     const result = await requestPayment(data);
 
     if (result.success) {
-      window.location.href = result.result;
+      window.location.assign(result.result);
       return;
     }
 

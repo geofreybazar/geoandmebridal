@@ -60,9 +60,11 @@ const UpdateContact = ({ user, setOpen }: UpdateContactProps) => {
     }
   };
 
+  // Reload the form when the saved contact details change
+  const { reset } = methods;
   useEffect(() => {
-    methods.reset(defaultValues);
-  }, [user]);
+    reset({ address: user.address, phoneNumber: user.phoneNumber });
+  }, [reset, user.address, user.phoneNumber]);
 
   return (
     <FormProvider {...methods}>

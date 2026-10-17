@@ -40,7 +40,7 @@ const TotalFee = ({ cartTotalPrice, cartItems }: TotalFeeProps) => {
 
   const totalPrice = useMemo(
     () => formattedValue(actualSubtotal + shippingFee),
-    [subtotal, shippingFee],
+    [actualSubtotal, shippingFee],
   );
 
   return (

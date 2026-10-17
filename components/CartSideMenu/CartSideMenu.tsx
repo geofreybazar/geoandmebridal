@@ -12,7 +12,7 @@ import CartFooter from "./CartFooter";
 import EmptyCart from "./EmptyCart";
 
 const CartSideMenu = () => {
-  const { data: session, status } = useSession();
+  const { data: session } = useSession();
 
   const { cartItems: fetchedCartItems, isLoading } = useGetClientCart(
     session?.user.id || "",

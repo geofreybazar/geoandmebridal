@@ -2,9 +2,9 @@ import useGetClientCart from "@/hooks/cart/useGetClientCart";
 import { useSession } from "next-auth/react";
 
 const CartItemQuantity = () => {
-  const { data: session, status } = useSession();
+  const { data: session } = useSession();
 
-  const { cartItems: fetchedCartItems, isLoading } = useGetClientCart(
+  const { cartItems: fetchedCartItems } = useGetClientCart(
     session?.user.id || "",
   );
 

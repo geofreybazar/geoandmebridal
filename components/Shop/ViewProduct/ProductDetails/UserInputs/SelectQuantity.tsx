@@ -34,7 +34,7 @@ const SelectQuantity = ({
     if (selectedQuantity < 1) {
       setSelectedQuantity(1);
     }
-  }, [selectedSize, availableStock]);
+  }, [selectedSize, availableStock, selectedQuantity, setSelectedQuantity]);
 
   const increment = () => {
     if (selectedQuantity < availableStock) {

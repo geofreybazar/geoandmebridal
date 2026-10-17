@@ -9,7 +9,7 @@ const Items = ({ order }: { order: CustomOrder }) => {
       </p>
 
       <ul className='space-y-1 text-sm'>
-        {order.orders.map((item: any) => {
+        {order.orders.map((item) => {
           const itemName = CUSTOM_BRIDAL_PRODUCTS.find(
             (product) => product.value === item.item,
           );

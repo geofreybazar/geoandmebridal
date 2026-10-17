@@ -47,7 +47,7 @@ const OrderDetails = ({ paymentRequest, customorder }: OrderDetailsProps) => {
         </p>
 
         <ul className='space-y-2'>
-          {customorder.orders.map((order: any) => {
+          {customorder.orders.map((order) => {
             const itemName = CUSTOM_BRIDAL_PRODUCTS.find(
               (product) => product.value === order.item,
             );

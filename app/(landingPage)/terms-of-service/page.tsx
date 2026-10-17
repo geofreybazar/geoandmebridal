@@ -207,7 +207,7 @@ const TermsOfServicePage = () => {
               <li>Attempting unauthorized access to our systems.</li>
               <li>Uploading malicious software or harmful code.</li>
               <li>Submitting fraudulent orders.</li>
-              <li>Interfering with the website's normal operation.</li>
+              <li>Interfering with the website&apos;s normal operation.</li>
               <li>Copying or scraping website content without permission.</li>
             </ul>
           </section>

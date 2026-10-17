@@ -31,11 +31,7 @@ const cities = Object.entries(cityShippingFees);
 const ShippingForm = () => {
   const [open, setOpen] = useState(false);
 
-  const {
-    control,
-    formState: { errors },
-    setValue,
-  } = useFormContext<DeliveryDetailsInput, undefined, DeliveryDetailsOutput>();
+  const { control, setValue } = useFormContext<DeliveryDetailsInput, undefined, DeliveryDetailsOutput>();
 
   const selectedCity = useWatch({
     control,

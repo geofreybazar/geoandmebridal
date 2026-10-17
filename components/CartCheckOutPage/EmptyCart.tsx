@@ -11,9 +11,9 @@ const EmptyCart = () => {
 
       {/* Description */}
       <p className='max-w-md text-sm leading-relaxed text-muted-foreground'>
-        You haven't added any bridal pieces yet. Explore our curated collection
+        You haven&apos;t added any bridal pieces yet. Explore our curated collection
         of gowns, entourage dresses, formalwear, and accessories crafted for
-        life's most memorable moments.
+        life&apos;s most memorable moments.
       </p>
 
       {/* CTA */}

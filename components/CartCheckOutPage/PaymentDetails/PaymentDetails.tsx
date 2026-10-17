@@ -9,7 +9,7 @@ import Items from "./Items";
 import TotalFee from "./TotalFee";
 
 const PaymentDetails = () => {
-  const { data: session, status } = useSession();
+  const { data: session } = useSession();
 
   const { cartItems: fetchedCartItems, isLoading } = useGetClientCart(
     session?.user.id || "",

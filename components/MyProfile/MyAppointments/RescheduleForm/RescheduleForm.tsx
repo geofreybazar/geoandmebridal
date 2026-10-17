@@ -17,7 +17,7 @@ import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 
 const ReschduleForm = ({ setOpen }: { setOpen: (x: boolean) => void }) => {
-  const { data: session, status } = useSession();
+  const { data: session } = useSession();
 
   const { rescheduleAppointment } = useRescheduleAppointment();
 

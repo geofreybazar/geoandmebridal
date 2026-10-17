@@ -5,7 +5,7 @@ import { Sheet, SheetTrigger } from "@/components/ui/sheet";
 
 import logo from "@/assets/GMB.svg";
 
-import { Menu, ShoppingCart } from "lucide-react";
+import { Menu } from "lucide-react";
 import SheetContentComponent from "./SheetContentComponent";
 
 import CartSideMenu from "@/components/CartSideMenu/CartSideMenu";
