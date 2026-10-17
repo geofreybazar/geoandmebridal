@@ -3,10 +3,7 @@ import {
   BookAppointmentType,
   RescheduleAppointmentType,
 } from "@/zodSchemas/appointment";
-import {
-  clientAuthHeaders,
-  optionalClientAuthHeaders,
-} from "@/lib/backendAuth";
+import { bookingAuthHeaders, clientAuthHeaders } from "@/lib/backendAuth";
 
 const service_route = process.env.NEXT_PUBLIC_APPOINTMENT_ROUTE;
 const API_URL =
@@ -15,12 +12,13 @@ const API_URL =
     : `http://localhost:3005/${service_route}`;
 
 export const AddNewAppointment = async (data: BookAppointmentType) => {
-  // Signed-in clients book as themselves; guests book without an account
+  // Signed-in clients book as themselves; guests book through this server
+  // (site token). Only call after the reCAPTCHA check (actions/appointments.ts).
   const response = await fetch(`${API_URL}/`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      ...(await optionalClientAuthHeaders()),
+      ...(await bookingAuthHeaders()),
     },
     body: JSON.stringify(data),
   });
@@ -33,26 +31,6 @@ export const AddNewAppointment = async (data: BookAppointmentType) => {
   }
 
   return await result;
-};
-
-export const googleTokenVerification = async (token: string) => {
-  const verifyRes = await fetch(
-    "https://www.google.com/recaptcha/api/siteverify",
-    {
-      method: "POST",
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: `secret=${process.env.RECAPTCHA_SECRET_KEY}&response=${token}`,
-    },
-  );
-
-  const google = await verifyRes.json();
-
-  if (!google.success || google.score < 0.5) {
-    return {
-      success: false,
-      error: "Failed security check. Please try again.",
-    };
-  }
 };
 
 export const GetClientAppointments = async (

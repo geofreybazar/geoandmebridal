@@ -36,12 +36,16 @@ const signToken = (claims: Record<string, unknown>) => {
   return `${header}.${payload}.${signature}`;
 };
 
+// Optional claims: vip = the visitor's IP as this server sees it (the backend
+// limits bookings per visitor; requests reach it from this server's address)
+type ExtraClaims = { vip?: string };
+
 // For a signed-in client: the backend takes the client id from this token
-export const clientTokenHeader = (clientId: string) => ({
-  Authorization: `Bearer ${signToken({ typ: "client", sub: clientId })}`,
+export const clientTokenHeader = (clientId: string, extra: ExtraClaims = {}) => ({
+  Authorization: `Bearer ${signToken({ typ: "client", sub: clientId, ...extra })}`,
 });
 
-// For calls made before a client id exists (sign-in lookup, signup)
-export const siteTokenHeader = () => ({
-  Authorization: `Bearer ${signToken({ typ: "site" })}`,
+// For calls made without a client id (sign-in lookup, signup, guest booking)
+export const siteTokenHeader = (extra: ExtraClaims = {}) => ({
+  Authorization: `Bearer ${signToken({ typ: "site", ...extra })}`,
 });

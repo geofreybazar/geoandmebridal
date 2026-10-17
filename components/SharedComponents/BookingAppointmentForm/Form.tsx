@@ -43,7 +43,7 @@ const Form = ({ step, setStep, userProfile }: FormProps) => {
   const onSubmit = async (data: BookAppointmentType) => {
     const token = await window.grecaptcha.execute(
       process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY!,
-      { action: "submit" },
+      { action: "book_appointment" },
     );
 
     const newData = { ...data, recaptchaToken: token };

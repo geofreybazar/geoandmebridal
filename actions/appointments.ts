@@ -1,11 +1,8 @@
 "use server";
 
 
-import {
-  AddNewAppointment,
-  googleTokenVerification,
-  RescheduleAppointment,
-} from "@/services/appointment";
+import { AddNewAppointment, RescheduleAppointment } from "@/services/appointment";
+import { RECAPTCHA_ACTIONS, verifyRecaptcha } from "@/lib/recaptcha";
 import {
   BookAppointmentType,
   RescheduleAppointmentType,
@@ -23,8 +20,11 @@ export async function submitNewAppointment(data: SubmitNewAppointmentPayload) {
   const token = data.recaptchaToken;
   const { recaptchaToken, ...appointmentData } = data;
 
-  // Verify google token
-  await googleTokenVerification(token);
+  // Refused when reCAPTCHA says bot; nothing is sent to the backend (SEC-13)
+  const check = await verifyRecaptcha(token, RECAPTCHA_ACTIONS.book);
+  if (!check.ok) {
+    return { success: false, error: check.error };
+  }
 
   try {
     const result = await AddNewAppointment(appointmentData);
@@ -48,8 +48,10 @@ export const rescheduleAppointmentAction = async (
   const token = data.recaptchaToken;
   const { recaptchaToken, ...appointmentData } = data;
 
-  // Verify google token
-  await googleTokenVerification(token);
+  const check = await verifyRecaptcha(token, RECAPTCHA_ACTIONS.reschedule);
+  if (!check.ok) {
+    return { success: false, error: check.error };
+  }
 
   try {
     const rescheduleAppointment = await RescheduleAppointment(appointmentData);

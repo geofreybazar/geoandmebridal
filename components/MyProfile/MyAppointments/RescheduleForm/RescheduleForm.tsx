@@ -42,7 +42,7 @@ const ReschduleForm = ({ setOpen }: { setOpen: (x: boolean) => void }) => {
   const onSubmit = async (data: RescheduleAppointmentType) => {
     const token = await window.grecaptcha.execute(
       process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY!,
-      { action: "submit" },
+      { action: "reschedule_appointment" },
     );
     const dataWithRecaptchaToken = {
       ...data,
