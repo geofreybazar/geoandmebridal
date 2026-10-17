@@ -2,6 +2,7 @@ import { useState } from "react";
 import { CalendarIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
+import { bookingWindow } from "@/lib/bookingWindow";
 import { Label } from "@/components/ui/label";
 import {
   Popover,
@@ -17,7 +18,9 @@ const DatePicker = () => {
   const [open, setOpen] = useState(false);
   const { control, setValue } = useFormContext<RescheduleAppointmentType>();
 
-  const shouldDisableDate = (date: Date) => date <= new Date();
+  // Bookable days only; the calendar used to stop at the end of the current year
+  const { first, last } = bookingWindow();
+  const shouldDisableDate = (date: Date) => date < first || date > last;
 
   return (
     <Controller
@@ -53,6 +56,8 @@ const DatePicker = () => {
                 mode='single'
                 selected={field.value}
                 captionLayout='dropdown'
+                startMonth={first}
+                endMonth={last}
                 onSelect={(date) => {
                   if (date) {
                     field.onChange(date);
