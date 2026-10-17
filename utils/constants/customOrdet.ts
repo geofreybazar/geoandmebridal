@@ -3,6 +3,7 @@ export const orderStatus: Record<string, string> = {
   active_projects: "Currently in production",
   completed_projects: "Order completed",
   archived_projects: "Archived order",
+  cancelled_projects: "Cancelled order",
 };
 
 export const CUSTOM_BRIDAL_PRODUCTS = [

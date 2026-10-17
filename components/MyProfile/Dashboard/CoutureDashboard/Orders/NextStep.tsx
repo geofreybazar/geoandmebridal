@@ -5,6 +5,12 @@ const getNextStep = (status: string, paymentStatus: string) => {
     return "Your order has been archived.";
   }
 
+  if (status === "cancelled_projects") {
+    return paymentStatus === "refunded"
+      ? "This order was cancelled and your payment has been refunded."
+      : "This order was cancelled. We will contact you about your payment.";
+  }
+
   if (paymentStatus === "paid") {
     return "Your order is fully paid. You may now schedule pickup or delivery.";
   }

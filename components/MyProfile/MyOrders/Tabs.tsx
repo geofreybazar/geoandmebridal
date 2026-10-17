@@ -4,6 +4,7 @@ const tabs = [
   { key: "active_projects", label: "Active" },
   { key: "completed_projects", label: "Completed" },
   { key: "archived_projects", label: "Archived" },
+  { key: "cancelled_projects", label: "Cancelled" },
 ];
 
 interface TabsProps {

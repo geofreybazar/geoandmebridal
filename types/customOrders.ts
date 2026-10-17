@@ -2,7 +2,8 @@ export type CustomOrderStatus =
   | "draft"
   | "active_projects"
   | "completed_projects"
-  | "archived_projects";
+  | "archived_projects"
+  | "cancelled_projects";
 
 export type PaymentStatus = "unpaid" | "downpayment_paid" | "paid" | "refunded";
 
