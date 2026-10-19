@@ -8,6 +8,8 @@ import { Items } from "@/types/cart";
 import { paragraph } from "@/utils/fonts/fonts";
 import { addItem } from "@/actions/cart";
 import { useQueryClient } from "@tanstack/react-query";
+import { toast } from "sonner";
+import { Loader2 } from "lucide-react";
 
 import NotLoginAlert from "./NotLoginAlert";
 
@@ -23,6 +25,7 @@ const AddToCartButton = ({
   selectedQuantity,
 }: AddToCartButtonProps) => {
   const [showNotLoginUserAlert, setShowNotLoginUserAlert] = useState(false);
+  const [isAdding, setIsAdding] = useState(false);
   const queryClient = useQueryClient();
   const { data: session } = useSession();
   const setOpen = useSideCartStore((state) => state.setOpen);
@@ -44,7 +47,7 @@ const AddToCartButton = ({
     selectedQuantity > availableStock;
 
   const handleAddToCart = async () => {
-    if (isDisabled) return;
+    if (isDisabled || isAdding) return;
     const productItem: Items = {
       productId: product._id,
       variantId: selectedSize._id,
@@ -61,11 +64,24 @@ const AddToCartButton = ({
         clientId: session.user.id,
         ...productItem,
       };
-      await addItem(data);
-      await queryClient.invalidateQueries({
-        queryKey: ["cartItems", session.user.id],
-      });
-      setOpen(true);
+      setIsAdding(true);
+      try {
+        // The server action returns the backend's reason instead of throwing
+        // (e.g. "Only 2 item(s) available in stock")
+        const result = await addItem(data);
+        if (!result.success) {
+          toast.error(result.error || "Could not add to cart. Please try again.");
+          return;
+        }
+        await queryClient.invalidateQueries({
+          queryKey: ["cartItems", session.user.id],
+        });
+        setOpen(true);
+      } catch {
+        toast.error("Could not add to cart. Please try again.");
+      } finally {
+        setIsAdding(false);
+      }
     } else {
       setShowNotLoginUserAlert(true);
     }
@@ -76,7 +92,8 @@ const AddToCartButton = ({
       <button
         type='button'
         onClick={handleAddToCart}
-        disabled={isDisabled}
+        disabled={isDisabled || isAdding}
+        aria-busy={isAdding}
         className={`
           ${paragraph.className}
           w-full
@@ -89,17 +106,28 @@ const AddToCartButton = ({
           ${
             isDisabled
               ? "border-black/20 bg-gray-200 text-black/40 cursor-not-allowed"
-              : "border-mocha bg-mocha text-offwhite hover:bg-mocha/90 hover:-translate-y-0.5"
+              : isAdding
+                ? "border-mocha bg-mocha/80 text-offwhite cursor-wait"
+                : "border-mocha bg-mocha text-offwhite hover:bg-mocha/90 hover:-translate-y-0.5"
           }
         `}
       >
-        {isDisabled
-          ? !selectedSize
-            ? "Select a size"
-            : availableStock === 0
-              ? "Out of stock"
-              : "Invalid quantity"
-          : "Add to cart"}
+        {isDisabled ? (
+          !selectedSize ? (
+            "Select a size"
+          ) : availableStock === 0 ? (
+            "Out of stock"
+          ) : (
+            "Invalid quantity"
+          )
+        ) : isAdding ? (
+          <span className='inline-flex items-center justify-center gap-2'>
+            <Loader2 className='h-4 w-4 animate-spin' />
+            Adding…
+          </span>
+        ) : (
+          "Add to cart"
+        )}
       </button>
 
       {/* Helper text */}
