@@ -10,13 +10,16 @@ const API_URL =
 
 export const GetCustomOrder = async (
   customOrderId: string,
-): Promise<CustomOrder> => {
+): Promise<CustomOrder | null> => {
   try {
     const response = await fetch(`${API_URL}/${customOrderId}`, {
       method: "GET",
       cache: "no-store",
       headers: await clientAuthHeaders(),
     });
+
+    // Not the caller's or unknown: the page shows "not found" (404)
+    if (response.status === 404) return null;
 
     if (!response.ok) {
       const errorBody = await response.json();

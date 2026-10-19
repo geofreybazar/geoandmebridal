@@ -24,11 +24,14 @@ export async function GetCollections(): Promise<CollectionType[]> {
 
 export async function GetCollectionsImages(
   id: string,
-): Promise<CollectionType> {
+): Promise<CollectionType | null> {
   const data = await fetch(`${API_URL}/getcollection/${id}`, {
     method: "GET",
     next: { revalidate: 86400, tags: ["collections"] },
   });
+
+  // Unknown or malformed id: the page shows "not found" (404/400 since P2-7)
+  if (data.status === 404 || data.status === 400) return null;
 
   if (!data.ok) {
     throw new Error(

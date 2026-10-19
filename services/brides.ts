@@ -26,15 +26,18 @@ export async function GetBrides(
   return await data.json();
 }
 
-export async function GetBride(id: string): Promise<Bride> {
+export async function GetBride(id: string): Promise<Bride | null> {
   const data = await fetch(`${API_URL}/getbride/${id}`, {
     method: "GET",
     next: { revalidate: 86400, tags: ["brides"] },
   });
 
+  // Unknown or malformed id: the page shows "not found" (404/400 since P2-7)
+  if (data.status === 404 || data.status === 400) return null;
+
   if (!data.ok) {
     throw new Error(
-      `Failed to fetch collection ${id}: ${data.status} ${data.statusText}`,
+      `Failed to fetch bride ${id}: ${data.status} ${data.statusText}`,
     );
   }
 

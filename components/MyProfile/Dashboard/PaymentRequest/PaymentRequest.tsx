@@ -11,6 +11,8 @@ const PaymentRequestCard = async ({
 }) => {
   const customorder = await GetCustomOrder(paymentRequest.customOrderId);
 
+  if (!customorder) return null;
+
   return (
     <section className='space-y-6 pt-5'>
       {/* Header */}

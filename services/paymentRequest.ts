@@ -36,7 +36,9 @@ export const GetClientPayments = async (
   }
 };
 
-export async function GetPaymentRequest(id: string): Promise<PaymentRequest> {
+export async function GetPaymentRequest(
+  id: string,
+): Promise<PaymentRequest | null> {
   try {
     const response = await fetch(`${API_URL}/${id}`, {
       method: "GET",
@@ -47,6 +49,9 @@ export async function GetPaymentRequest(id: string): Promise<PaymentRequest> {
       },
       // next: { revalidate: 86400 },
     });
+
+    // Not the caller's or unknown: the page shows "not found" (404)
+    if (response.status === 404) return null;
 
     if (!response.ok) {
       const errorBody = await response.json();

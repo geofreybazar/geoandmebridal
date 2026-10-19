@@ -81,7 +81,7 @@ export async function GetCategories(
   return await data.json();
 }
 
-export async function GetProduct(slug: string): Promise<ProductType> {
+export async function GetProduct(slug: string): Promise<ProductType | null> {
   const data = await fetch(`${API_URL}/getproduct/${slug}`, {
     method: "GET",
     next: {
@@ -89,6 +89,9 @@ export async function GetProduct(slug: string): Promise<ProductType> {
       tags: ["products"],
     },
   });
+
+  // Unknown product: the page shows "Product not found" (404 since 53a0b5d)
+  if (data.status === 404) return null;
 
   if (!data.ok) {
     throw new Error(
