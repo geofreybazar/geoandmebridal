@@ -1,12 +1,10 @@
 // Public: free appointment slots for a date. Kept apart from
 // services/appointment.ts (which reads the session) because the booking
 // calendar calls it from the browser.
+import { backendUrl } from "@/lib/backendUrl";
 
 const service_route = process.env.NEXT_PUBLIC_APPOINTMENT_ROUTE;
-const API_URL =
-  process.env.NODE_ENV === "production"
-    ? `https://geoandmebridalbackend.onrender.com/${service_route}`
-    : `http://localhost:3005/${service_route}`;
+const API_URL = backendUrl(service_route, "NEXT_PUBLIC_APPOINTMENT_ROUTE");
 
 export const GetAvailableTimeSlots = async (
   selectedDate: Date,

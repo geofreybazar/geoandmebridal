@@ -1,11 +1,9 @@
 import { CollectionType } from "@/types/collections";
+import { backendUrl } from "@/lib/backendUrl";
 
 const service_route = process.env.NEXT_PUBLIC_COLLECTION_ROUTE;
 
-const API_URL =
-  process.env.NODE_ENV === "production"
-    ? `https://geoandmebridalbackend.onrender.com/${service_route}`
-    : `http://localhost:3005/${service_route}`;
+const API_URL = backendUrl(service_route, "NEXT_PUBLIC_COLLECTION_ROUTE");
 
 export async function GetCollections(): Promise<CollectionType[]> {
   const data = await fetch(`${API_URL}/getclientcollections/`, {

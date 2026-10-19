@@ -2,12 +2,10 @@ import { ClientUser } from "@/types/client";
 import { ClientSignupType } from "@/zodSchemas/signupForm";
 import { clientAuthHeaders } from "@/lib/backendAuth";
 import { siteTokenHeader } from "@/lib/backendToken";
+import { backendUrl } from "@/lib/backendUrl";
 
 const service_route = process.env.NEXT_PUBLIC_CLIENT_ROUTE;
-const API_URL =
-  process.env.NODE_ENV === "production"
-    ? `https://geoandmebridalbackend.onrender.com/${service_route}`
-    : `http://localhost:3005/${service_route}`;
+const API_URL = backendUrl(service_route, "NEXT_PUBLIC_CLIENT_ROUTE");
 
 export const ClientUserSignup = async (userData: ClientSignupType) => {
   try {

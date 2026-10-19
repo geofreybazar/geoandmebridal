@@ -1,14 +1,12 @@
 import { ClientUser } from "@/types/client";
 import { siteTokenHeader } from "@/lib/backendToken";
+import { backendUrl } from "@/lib/backendUrl";
 
 // Used by auth.ts on sign-in. Kept apart from services/clients.ts, which reads
 // the Auth.js session and would otherwise import auth.ts back.
 
 const service_route = process.env.NEXT_PUBLIC_CLIENT_ROUTE;
-const API_URL =
-  process.env.NODE_ENV === "production"
-    ? `https://geoandmebridalbackend.onrender.com/${service_route}`
-    : `http://localhost:3005/${service_route}`;
+const API_URL = backendUrl(service_route, "NEXT_PUBLIC_CLIENT_ROUTE");
 
 export const ClientUserLogin = async (
   email: string,

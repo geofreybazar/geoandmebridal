@@ -1,10 +1,8 @@
 import { Bride, ReturnedBrides } from "@/types/brides";
+import { backendUrl } from "@/lib/backendUrl";
 
 const service_route = process.env.NEXT_PUBLIC_BRIDE_ROUTE;
-const API_URL =
-  process.env.NODE_ENV === "production"
-    ? `https://geoandmebridalbackend.onrender.com/${service_route}`
-    : `http://localhost:3005/${service_route}`;
+const API_URL = backendUrl(service_route, "NEXT_PUBLIC_BRIDE_ROUTE");
 
 export async function GetBrides(
   pageParam: string | null,

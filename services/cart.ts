@@ -1,12 +1,10 @@
 import { CartType, Items } from "@/types/cart";
 import { clientAuthHeaders } from "@/lib/backendAuth";
+import { backendUrl } from "@/lib/backendUrl";
 
 const service_route = process.env.NEXT_PUBLIC_CART_ROUTE;
 
-const API_URL =
-  process.env.NODE_ENV === "production"
-    ? `https://geoandmebridalbackend.onrender.com/${service_route}`
-    : `http://localhost:3005/${service_route}`;
+const API_URL = backendUrl(service_route, "NEXT_PUBLIC_CART_ROUTE");
 
 export const GetClientCart = async (clientId: string): Promise<CartType> => {
   const response = await fetch(`${API_URL}/${clientId}`, {

@@ -1,11 +1,9 @@
 import { DeliveryDetailsOutput } from "@/zodSchemas/cartCheckoutForm";
 import { clientAuthHeaders } from "@/lib/backendAuth";
+import { backendUrl } from "@/lib/backendUrl";
 
 const service_route = process.env.NEXT_PUBLIC_CHECKOUT_ROUTE;
-const API_URL =
-  process.env.NODE_ENV === "production"
-    ? `https://geoandmebridalbackend.onrender.com/${service_route}`
-    : `http://localhost:3005/${service_route}`;
+const API_URL = backendUrl(service_route, "NEXT_PUBLIC_CHECKOUT_ROUTE");
 
 type notEnoughStockType = {
   productId: string;
