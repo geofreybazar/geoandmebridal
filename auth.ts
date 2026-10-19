@@ -134,8 +134,19 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       return token;
     },
 
-    async signIn({ profile }) {
-      return !!profile?.email;
+    async signIn({ user, account, profile }) {
+      if (!profile?.email) return false;
+
+      // Deactivated accounts cannot sign in; staff reactivate them in the
+      // admin (owner decision). Shown on the login page.
+      if (account && user?.email) {
+        const client = await ClientUserLogin(user.email, account.provider);
+        if (client?.status === "inactive") {
+          return "/login?error=AccountInactive";
+        }
+      }
+
+      return true;
     },
 
     async session({ session, token }) {
