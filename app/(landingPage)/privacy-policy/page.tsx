@@ -193,7 +193,9 @@ const PrivacyPolicyPage = () => {
               Subject to applicable laws, you may request access to your
               personal information, update inaccurate information, request
               deletion of your personal data, or withdraw consent for certain
-              processing activities.
+              processing activities. When we delete your data, records of
+              orders, appointments and payments are kept for legal and tax
+              purposes with your name and contact details removed.
             </p>
           </section>
 
