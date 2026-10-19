@@ -1,3 +1,4 @@
+import { notFound } from "next/navigation";
 import ProductView from "@/components/Shop/ViewProduct/ProductView";
 import { GetProduct } from "@/services/shop";
 
@@ -11,9 +12,7 @@ const ViewProductPage = async ({
   const product = await GetProduct(productSlug);
 
   if (!product) {
-    return (
-      <div className='py-32 text-center text-black/60'>Product not found.</div>
-    );
+    notFound();
   }
 
   return <ProductView product={product} />;

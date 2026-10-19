@@ -1,62 +1,53 @@
 "use client";
 
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
-import { useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { title, paragraph } from "@/utils/fonts/fonts";
+import MochaContainedButton from "@/components/SharedComponents/ButtonComponents/MochaContainedButton";
+import OutlinedMochaButton from "@/components/SharedComponents/ButtonComponents/OutlinedMochaButton";
 
-export default function ErrorPage() {
-  const router = useRouter();
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      router.push("/myprofile");
-    }, 6000);
-
-    return () => clearTimeout(timer);
-  }, [router]);
-
+// Unexpected errors on the public site and "my profile"; no automatic
+// redirect (visitors who are not signed in have no dashboard)
+export default function ErrorPage({ reset }: { reset: () => void }) {
   return (
-    <section className='min-h-screen flex items-center justify-center'>
-      <div className='max-w-xl text-center space-y-8 animate-fade-in'>
+    <section className='min-h-[70vh] flex items-center justify-center py-24 px-6 xl:px-36 2xl:px-52'>
+      <div className='max-w-2xl flex flex-col items-center text-center'>
+        {/* Eyebrow */}
+        <p className='text-xs tracking-[0.35em] uppercase text-black/60 mb-4'>
+          Something Went Wrong
+        </p>
+
         {/* Title */}
-        <h1 className='font-serif text-4xl font-light'>
+        <h1
+          className={`${title.className} text-3xl md:text-4xl lg:text-5xl text-black`}
+        >
           This page seems to have wandered
         </h1>
 
         {/* Divider */}
-        <div className='w-16 h-[2px] bg-champagneGold mx-auto' />
+        <div className='w-24 h-px my-8 bg-gradient-to-r from-transparent via-champagneGold to-transparent' />
 
         {/* Message */}
-        <p className='text-muted-foreground text-sm leading-relaxed'>
-          The page you’re looking for may have been moved or is no longer
-          available. Let us guide you back to your couture journey.
+        <p
+          className={`${paragraph.className} text-sm md:text-base lg:text-lg text-black/70 leading-relaxed`}
+        >
+          We couldn&apos;t load this page just now. Please try again in a
+          moment, or let us guide you back to your couture journey.
         </p>
 
         {/* Actions */}
-        <div className='flex flex-col sm:flex-row items-center justify-center gap-4 pt-4'>
-          <Button
-            asChild
-            className='bg-warmTaupe hover:bg-champagneGold text-white px-6'
-          >
-            <Link href='/myprofile'>Return to Dashboard</Link>
-          </Button>
+        <div className='mt-10 flex flex-col sm:flex-row gap-4 sm:gap-6 w-full sm:w-auto'>
+          <div className='w-full sm:w-auto'>
+            <MochaContainedButton onClick={reset}>Try Again</MochaContainedButton>
+          </div>
 
-          <Button asChild variant='outline' className='px-6'>
-            <Link href='/'>Back to Home</Link>
-          </Button>
+          <Link href='/' className='w-full sm:w-auto'>
+            <OutlinedMochaButton>Back to Home</OutlinedMochaButton>
+          </Link>
         </div>
 
-        {/* Footer */}
-        <div className='pt-6 space-y-2'>
-          <p className='text-xs text-muted-foreground'>
-            You’ll be redirected shortly…
-          </p>
-
-          <p className='text-[10px] text-muted-foreground'>
-            GEO + Me Bridal Atelier
-          </p>
-        </div>
+        <p className='mt-10 text-[10px] tracking-[0.35em] uppercase text-black/50'>
+          GEO + Me Bridal Atelier
+        </p>
       </div>
     </section>
   );
