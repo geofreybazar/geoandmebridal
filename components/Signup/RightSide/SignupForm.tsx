@@ -41,7 +41,9 @@ const SignupForm = ({
     const result = await signupUser(data);
 
     if (result.success) {
-      await update();
+      // An argument is needed: update() alone only re-reads the session and
+      // never reaches the jwt "update" step that links the new account
+      await update({});
       router.replace("/");
       router.refresh();
       return;
