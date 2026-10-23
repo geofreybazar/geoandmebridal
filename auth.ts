@@ -38,7 +38,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   providers,
 
   callbacks: {
-    async jwt({ token, account, user, profile }) {
+    async jwt({ token, account, user, profile, trigger }) {
       // First sign-in only (account is set); later calls return the token as is.
       if (account && user?.email) {
         const client = await ClientUserLogin(user.email, account.provider);
@@ -63,6 +63,24 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 
         token.provider = account.provider;
         return token;
+      }
+
+      // After signup (update() from SignupForm): link the new account to this
+      // session without a second OAuth round. Looked up on the server, so the
+      // browser cannot choose the account.
+      if (
+        trigger === "update" &&
+        token.isNewUser &&
+        token.email &&
+        token.provider
+      ) {
+        const client = await ClientUserLogin(token.email, token.provider);
+        if (client) {
+          token.firstName = client.firstName;
+          token.lastName = client.lastName;
+          token.clientId = client._id;
+          token.isNewUser = false;
+        }
       }
 
       return token;

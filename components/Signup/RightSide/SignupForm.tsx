@@ -2,7 +2,8 @@
 
 import { useForm, FormProvider } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { signIn } from "next-auth/react";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 import InputField from "./InputField";
 import { Spinner } from "@/components/ui/spinner";
@@ -22,6 +23,8 @@ const SignupForm = ({
   lastName,
   provider,
 }: SignupFormProps) => {
+  const { update } = useSession();
+  const router = useRouter();
   const methods = useForm<ClientSignupType>({
     resolver: zodResolver(clientSignupSchema),
     defaultValues: {
@@ -38,9 +41,9 @@ const SignupForm = ({
     const result = await signupUser(data);
 
     if (result.success) {
-      await signIn(provider!, {
-        callbackUrl: "/",
-      });
+      await update();
+      router.replace("/");
+      router.refresh();
       return;
     }
 

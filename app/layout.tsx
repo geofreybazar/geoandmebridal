@@ -2,6 +2,7 @@ import { SessionProvider } from "next-auth/react";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import type { Metadata } from "next";
 import Providers from "./providers";
+import UnfinishedSignupSignOut from "@/components/SharedComponents/UnfinishedSignupSignOut";
 import "./globals.css";
 
 import { Toaster } from "sonner";
@@ -26,6 +27,7 @@ export default function RootLayout({
         <Providers>
           <TooltipProvider>
             <SessionProvider>
+              <UnfinishedSignupSignOut />
               {children}
               <Toaster />
             </SessionProvider>
