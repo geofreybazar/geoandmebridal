@@ -59,6 +59,11 @@ export interface ShopOrder {
   dateOrdered: string;
   completedAt: string;
   cancelledAt: string;
+  // Set when the shop recorded a refund (made in PayMongo)
+  refund?: {
+    amount: number;
+    refundedAt: string;
+  };
   createdAt: string;
   updatedAt: string;
 }
