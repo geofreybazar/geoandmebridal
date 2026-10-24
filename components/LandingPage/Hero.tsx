@@ -13,9 +13,11 @@ const Hero = () => {
         muted
         loop
         playsInline
+        preload='none'
+        poster='/videos/hero-poster.webp'
+        aria-hidden='true'
       >
         <source src='/videos/Hero2.mp4' type='video/mp4' />
-        Your browser does not support the video tag.
       </video>
 
       {/* Overlay */}

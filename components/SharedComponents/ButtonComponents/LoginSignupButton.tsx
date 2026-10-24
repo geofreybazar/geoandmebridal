@@ -15,7 +15,11 @@ const LoginSignupButton = () => {
   return (
     <>
       {!session ? (
-        <button className='text-mocha text-2xl' onClick={() => signIn()}>
+        <button
+          aria-label='Sign in'
+          className='text-mocha text-2xl'
+          onClick={() => signIn()}
+        >
           <User className='rounded-full h-10 w-10 p-2 cursor-pointer text-mocha hover:bg-mocha hover:text-offwhite transition' />
         </button>
       ) : (

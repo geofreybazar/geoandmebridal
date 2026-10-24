@@ -12,7 +12,7 @@ const OpenCart = () => {
   return (
     <Sheet open={open} onOpenChange={(isOpen) => setOpen(isOpen)}>
       <SheetTrigger asChild>
-        <button aria-label='Open menu' className='relative'>
+        <button aria-label='Open cart' className='relative'>
           <CartButton />
           <CartItemQuantity />
         </button>

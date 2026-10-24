@@ -38,7 +38,7 @@ const Testimonials = async () => {
 
       <div className='mt-8 block md:flex md:justify-center'>
         <Link href='/testimonials'>
-          <MochaContainedButton>Read More</MochaContainedButton>
+          <MochaContainedButton>Read more testimonials</MochaContainedButton>
         </Link>
       </div>
     </section>

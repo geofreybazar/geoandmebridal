@@ -29,6 +29,9 @@ const SwiperComponent = ({ images }: SliderComponentProps) => {
             <Image
               src={img}
               alt='GEO and Me Bridal Collections'
+              width={334}
+              height={501}
+              sizes='334px'
               className='rounded-md'
             />
           </SwiperSlide>

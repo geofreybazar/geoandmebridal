@@ -3,12 +3,12 @@ import SwiperComponent from "../SharedComponents/SwiperComponent";
 import MochaContainedButton from "../SharedComponents/ButtonComponents/MochaContainedButton";
 import { title, paragraph } from "@/utils/fonts/fonts";
 
-import img1 from "@/assets/RealWeddings/1.svg";
-import img2 from "@/assets/RealWeddings/2.svg";
-import img3 from "@/assets/RealWeddings/3.svg";
-import img4 from "@/assets/RealWeddings/4.svg";
-import img5 from "@/assets/RealWeddings/5.svg";
-import img6 from "@/assets/RealWeddings/6.svg";
+import img1 from "@/assets/RealWeddings/1.jpg";
+import img2 from "@/assets/RealWeddings/2.jpg";
+import img3 from "@/assets/RealWeddings/3.jpg";
+import img4 from "@/assets/RealWeddings/4.jpg";
+import img5 from "@/assets/RealWeddings/5.jpg";
+import img6 from "@/assets/RealWeddings/6.jpg";
 
 const images = [img1, img2, img3, img4, img5, img6];
 

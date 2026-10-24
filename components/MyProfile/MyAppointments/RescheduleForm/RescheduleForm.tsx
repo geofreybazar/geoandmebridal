@@ -1,4 +1,5 @@
 import { useSession } from "next-auth/react";
+import Script from "next/script";
 
 import { useForm, FormProvider, useWatch } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -64,6 +65,11 @@ const ReschduleForm = ({ setOpen }: { setOpen: (x: boolean) => void }) => {
 
   return (
     <FormProvider {...methods}>
+      {/* Only the booking and reschedule forms need reCAPTCHA (not every page) */}
+      <Script
+        src={`https://www.google.com/recaptcha/api.js?render=${process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}`}
+        strategy='afterInteractive'
+      />
       <form onSubmit={methods.handleSubmit(onSubmit)} className='space-y-6'>
         {/* error message */}
         {methods.formState.errors.root?.serverError?.message && (

@@ -47,7 +47,7 @@ const MobileMode = ({ links }: MobileModeProps) => {
 
       <Sheet>
         <SheetTrigger asChild>
-          <button aria-label='Open menu' className='relative'>
+          <button aria-label='Open cart' className='relative'>
             <CartButton />
             <CartItemQuantity />
           </button>

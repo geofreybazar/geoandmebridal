@@ -9,7 +9,6 @@ const Left = () => {
         src={whiteLogo}
         alt='GEO + Me Bridal'
         className='w-60 h-auto'
-        priority
       />
 
       <h3 className={`${title.className} text-2xl md:text-3xl max-w-md`}>

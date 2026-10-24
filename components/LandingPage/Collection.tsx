@@ -2,12 +2,12 @@ import { title, paragraph } from "@/utils/fonts/fonts";
 import SwiperComponent from "../SharedComponents/SwiperComponent";
 import MochaContainedButton from "../SharedComponents/ButtonComponents/MochaContainedButton";
 
-import Image1 from "@/assets/CollectionSlider/1.svg";
-import Image2 from "@/assets/CollectionSlider/2.svg";
-import Image3 from "@/assets/CollectionSlider/3.svg";
-import Image4 from "@/assets/CollectionSlider/4.svg";
-import Image5 from "@/assets/CollectionSlider/5.svg";
-import Image6 from "@/assets/CollectionSlider/6.svg";
+import Image1 from "@/assets/CollectionSlider/1.jpg";
+import Image2 from "@/assets/CollectionSlider/2.jpg";
+import Image3 from "@/assets/CollectionSlider/3.jpg";
+import Image4 from "@/assets/CollectionSlider/4.jpg";
+import Image5 from "@/assets/CollectionSlider/5.jpg";
+import Image6 from "@/assets/CollectionSlider/6.jpg";
 
 import Link from "next/link";
 
@@ -25,7 +25,7 @@ const Collection = () => {
 
         {/* Title */}
         <h2
-          className={`mb-4 ${title.className} text-3xl md:text-4xl lg:text-5xl text-black'`}
+          className={`mb-4 ${title.className} text-3xl md:text-4xl lg:text-5xl text-black`}
         >
           Our Signature Creations
         </h2>

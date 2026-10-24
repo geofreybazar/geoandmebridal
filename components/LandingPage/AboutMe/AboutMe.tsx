@@ -51,9 +51,8 @@ const AboutMe = () => {
               src={Medy}
               alt='Medy G. Magsipoc-Bazar'
               fill
-              sizes='(max-width: 768px) 100vw, 50vw'
+              sizes='(max-width: 768px) 300px, (max-width: 1024px) 360px, 420px'
               className='object-cover'
-              priority
             />
           </div>
         </div>

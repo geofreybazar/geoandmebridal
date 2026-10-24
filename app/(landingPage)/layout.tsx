@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Script from "next/script";
 
 import Navigation from "@/components/SharedComponents/Navigation/Navigation";
 import Footer from "@/components/SharedComponents/Footer/Footer";
@@ -21,13 +20,9 @@ const layout = ({
 }>) => {
   return (
     <div className='bg-linear-to-b from-offwhite to-champagneBeige'>
-      <Script
-        src={`https://www.google.com/recaptcha/api.js?render=${process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}`}
-        strategy='afterInteractive'
-      />
       <Navigation />
       <BreadCrumbsComponent />
-      {children}
+      <main>{children}</main>
       <Footer />
     </div>
   );
