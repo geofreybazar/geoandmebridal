@@ -36,7 +36,7 @@ const ViewBrideGrid = ({ bride }: { bride: Bride }) => {
             <Image
               onClick={() => handlePictureClick(index)}
               src={photo.imageInfo.url}
-              alt={`${bride.bridesName} wedding look ${index + 1}`}
+              alt={`${bride.bridesName.split(" ")[0]} wedding look ${index + 1}`}
               fill
               sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
               className='object-cover transition-transform duration-700 hover:scale-105 cursor-pointer'

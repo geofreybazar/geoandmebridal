@@ -13,10 +13,19 @@ import {
   BreadcrumbPage,
 } from "@/components/ui/breadcrumb";
 
-const BreadCrumbsComponent = () => {
+// A bride's page renders its own breadcrumb ending in her first name, not the id
+const BRIDE_PAGE = /^\/brides\/[^/]+$/;
+
+const BreadCrumbsComponent = ({
+  lastLabel,
+  className = "px-6 xl:px-36 2xl:px-52 pt-10 pb-6",
+}: {
+  lastLabel?: string;
+  className?: string;
+}) => {
   const pathname = usePathname();
 
-  if (pathname === "/") {
+  if (pathname === "/" || (!lastLabel && BRIDE_PAGE.test(pathname))) {
     return null;
   }
 
@@ -29,7 +38,7 @@ const BreadCrumbsComponent = () => {
   };
 
   return (
-    <Breadcrumb className='px-6 xl:px-36 2xl:px-52 pt-10 pb-6'>
+    <Breadcrumb className={className}>
       <BreadcrumbList>
         {/* Home Link */}
         <BreadcrumbItem>
@@ -44,9 +53,12 @@ const BreadCrumbsComponent = () => {
         {segments.map((segment, index) => {
           const href = buildHref(index);
           const isLast = index === segments.length - 1;
-          const label = segment
-            .replace(/-/g, " ")
-            .replace(/\b\w/g, (c) => c.toUpperCase());
+          const label =
+            isLast && lastLabel
+              ? lastLabel
+              : segment
+                  .replace(/-/g, " ")
+                  .replace(/\b\w/g, (c) => c.toUpperCase());
 
           return (
             <span key={href} className='flex items-center'>
@@ -56,7 +68,7 @@ const BreadCrumbsComponent = () => {
 
               <BreadcrumbItem>
                 {isLast ? (
-                  <BreadcrumbPage className='text-black font-medium'>
+                  <BreadcrumbPage className='text-black font-medium capitalize'>
                     {label}
                   </BreadcrumbPage>
                 ) : (

@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { GetBride } from "@/services/brides";
 import { paragraph, title } from "@/utils/fonts/fonts";
 import ViewBrideGrid from "@/components/Brides/ViewBrideGrid";
+import BreadCrumbsComponent from "@/components/SharedComponents/BreadCrumbsComponent/BreadCrumbsComponent";
 
 const ViewBridePage = async ({
   params,
@@ -18,8 +19,14 @@ const ViewBridePage = async ({
     notFound();
   }
 
+  // Only the first name is shown publicly (owner decision 2026-10-24)
+  const firstName = bride.bridesName.split(" ")[0];
+
   return (
     <main>
+      {/* The layout's padding already applies here */}
+      <BreadCrumbsComponent lastLabel={firstName} className='pt-10 pb-6' />
+
       {/* Header */}
       <section className='pb-16 '>
         <p className='text-xs tracking-[0.35em] uppercase text-black/60 mb-4'>
@@ -29,21 +36,18 @@ const ViewBridePage = async ({
         <h1
           className={`${title.className} text-4xl md:text-5xl lg:text-6xl text-black capitalize`}
         >
-          {bride.bridesName}
+          {firstName}
         </h1>
 
         <div className='w-24 h-px mx-auto my-8 bg-gradient-to-r from-transparent via-champagneGold to-transparent' />
 
-        <p
-          className={`${paragraph.className} text-sm md:text-lg text-black/70`}
-        >
-          {new Date(bride.weddingDate).toLocaleDateString("en-US", {
-            year: "numeric",
-            month: "long",
-            day: "numeric",
-          })}
-          {bride.details?.venue ? ` • ${bride.details.venue}` : ""}
-        </p>
+        {bride.details?.venue && (
+          <p
+            className={`${paragraph.className} text-sm md:text-lg text-black/70`}
+          >
+            {bride.details.venue}
+          </p>
+        )}
       </section>
 
       {/* Album Grid */}
