@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Controller, useFormContext } from "react-hook-form";
-import { format } from "date-fns";
+import { addMonths, format } from "date-fns";
 import { ChevronDownIcon } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -72,6 +72,8 @@ const PickupForm = () => {
                   selected={field.value}
                   defaultMonth={field.value}
                   captionLayout='dropdown'
+                  startMonth={new Date()}
+                  endMonth={addMonths(new Date(), 12)}
                   onSelect={(date) => {
                     field.onChange(date);
                     setOpen(false);
