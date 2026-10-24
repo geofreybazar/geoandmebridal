@@ -5,10 +5,6 @@ import { Navigation, FreeMode, Thumbs } from "swiper/modules";
 
 import { ChevronUp, ChevronDown } from "lucide-react";
 
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/free-mode";
-import "swiper/css/thumbs";
 import { ProductType } from "@/types/shop";
 
 interface ThumbnailProps {
@@ -25,7 +21,7 @@ const Thumbnail = ({
   return (
     <>
       {/* Desktop Controls */}
-      <button className='custom-prev hidden lg:flex justify-center p-2 hover:text-blue-500'>
+      <button className='custom-prev hidden lg:flex justify-center p-2 hover:text-warmTaupe'>
         <ChevronUp />
       </button>
 
@@ -71,7 +67,7 @@ const Thumbnail = ({
       </Swiper>
 
       {/* Desktop Controls */}
-      <button className='custom-next hidden lg:flex justify-center p-2 hover:text-blue-500'>
+      <button className='custom-next hidden lg:flex justify-center p-2 hover:text-warmTaupe'>
         <ChevronDown />
       </button>
     </>

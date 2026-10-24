@@ -33,7 +33,7 @@ const SelectSize = ({
       ) : (
         <div className='flex gap-3 flex-wrap'>
           {filteredVariants.map((variant) => {
-            const isOutOfStock = variant.stock <= 0;
+            const isOutOfStock = variant.availableStock <= 0;
             const isSelected = selectedSize?._id === variant._id;
 
             return (

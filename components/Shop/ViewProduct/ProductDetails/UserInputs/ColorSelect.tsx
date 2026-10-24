@@ -25,12 +25,12 @@ const ColorSelect = ({
       <p className='text-sm uppercase tracking-widest mb-3'>Available Colors</p>
 
       <div className='flex gap-3 flex-wrap'>
-        {colors.map((color) => {
+        {colors.map((color, index) => {
           const isSelected = selectedColor === color.hex;
 
           // check if ALL variants of this color are out of stock
           const hasStock = product.variants.some(
-            (v) => v.attributes.color.hex === color.hex && v.stock > 0,
+            (v) => v.attributes.color.hex === color.hex && v.availableStock > 0,
           );
 
           return (
@@ -57,7 +57,8 @@ const ColorSelect = ({
                 ${isSelected ? "ring-2 ring-black ring-offset-2" : ""}
               `}
               style={{ backgroundColor: color.hex }}
-              title={color.hex}
+              aria-label={`Colour ${index + 1}${hasStock ? "" : ", out of stock"}`}
+              aria-pressed={isSelected}
             >
               {/* Optional: X mark if no stock */}
               {!hasStock && (
@@ -67,13 +68,6 @@ const ColorSelect = ({
           );
         })}
       </div>
-
-      {/* Selected label */}
-      {selectedColor && (
-        <p className='text-xs mt-2 text-muted-foreground'>
-          Selected: {selectedColor}
-        </p>
-      )}
     </div>
   );
 };

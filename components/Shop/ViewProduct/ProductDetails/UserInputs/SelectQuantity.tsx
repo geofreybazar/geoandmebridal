@@ -115,7 +115,7 @@ const SelectQuantity = ({
 
       {/* Helper Text */}
       {!selectedSize && (
-        <p className='mt-2 text-xs text-red-500'>Please select a size first</p>
+        <p className='mt-2 text-xs text-black/50'>Please select a size first</p>
       )}
 
       {selectedSize && availableStock === 0 && (

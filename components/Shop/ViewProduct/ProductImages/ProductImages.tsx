@@ -5,6 +5,11 @@ import { ProductType } from "@/types/shop";
 
 import { SwiperClass } from "swiper/react";
 
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/free-mode";
+import "swiper/css/thumbs";
+
 import Thumbnail from "./Thumbnail";
 import MainImage from "./MainImage";
 
