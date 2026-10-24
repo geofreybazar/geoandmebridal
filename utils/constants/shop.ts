@@ -1,5 +1,8 @@
 import Bridal from "@/assets/Shop/cam.jpg";
 import Suit from "@/assets/Shop/suit.jpeg";
+import Entourage from "@/assets/Shop/entourage.jpg";
+import Formalwear from "@/assets/Shop/formalwear.jpg";
+import Accessories from "@/assets/Shop/accessories.jpg";
 
 export const SHOP_CATEGORIES = [
   {
@@ -15,7 +18,7 @@ export const SHOP_CATEGORIES = [
     description:
       "Coordinated dresses for bridesmaids, mothers, and the bridal party—designed for elegance and harmony.",
     link: "/shop/entourage",
-    image: "/mock/shop/accessories.jpg",
+    image: Entourage,
     cta: "Shop Entourage",
   },
   {
@@ -23,7 +26,7 @@ export const SHOP_CATEGORIES = [
     description:
       "Elegant gowns for special occasions, including debut, evening, and cocktail events.",
     link: "/shop/formalwear",
-    image: "/mock/shop/accessories.jpg",
+    image: Formalwear,
     cta: "Explore Formalwear",
   },
   {
@@ -38,7 +41,7 @@ export const SHOP_CATEGORIES = [
     description:
       "Veils, jewelry, shoes, and finishing touches to complete your bridal look.",
     link: "/shop/accessories",
-    image: "/mock/shop/accessories.jpg",
+    image: Accessories,
     cta: "Shop Accessories",
   },
 ];

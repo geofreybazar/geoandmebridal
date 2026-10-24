@@ -2,6 +2,7 @@ import Image from "next/image";
 import { title, paragraph } from "@/utils/fonts/fonts";
 import PageHeader from "@/components/SharedComponents/PageHeader/PageHeader";
 import GEOandMeShop from "@/assets/AboutUs/shop.jpg";
+import Designer from "@/assets/AboutUs/designer.jpg";
 
 const AboutUsPage = () => {
   return (
@@ -63,7 +64,7 @@ const AboutUsPage = () => {
           {/* Image */}
           <div className='relative aspect-[3/4] rounded-md overflow-hidden order-last lg:order-first'>
             <Image
-              src='/mock/about/designer.jpg'
+              src={Designer}
               alt='Medy G. Magsipoc-Bazar'
               fill
               className='object-cover'

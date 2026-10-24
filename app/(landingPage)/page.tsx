@@ -9,13 +9,13 @@ const RealBrides = dynamic(() => import("@/components/LandingPage/RealBrides"));
 
 const LandingPage = () => {
   return (
-    <>
+    <main>
       <Hero />
       <Collection />
       <RealBrides />
       <Testimonials />
       <AboutMe />
-    </>
+    </main>
   );
 };
 

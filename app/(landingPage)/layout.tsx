@@ -22,7 +22,7 @@ const layout = ({
     <div className='bg-linear-to-b from-offwhite to-champagneBeige'>
       <Navigation />
       <BreadCrumbsComponent />
-      <main>{children}</main>
+      {children}
       <Footer />
     </div>
   );
