@@ -1,16 +1,18 @@
 import { paragraph } from "@/utils/fonts/fonts";
 import { ReactNode } from "react";
+import Link from "next/link";
 
 const OutlinedMochaButton = ({
   onClick,
+  href,
   children,
 }: {
   onClick?: () => void;
+  // Renders a link styled as this button (never a <button> inside a link)
+  href?: string;
   children: ReactNode;
 }) => {
-  return (
-    <button
-      className={`
+  const className = `
         ${paragraph.className}
         w-full
         rounded-md
@@ -23,9 +25,18 @@ const OutlinedMochaButton = ({
         hover:text-offwhite
         hover:border-mocha
         hover:-translate-y-0.5
-      `}
-      onClick={onClick}
-    >
+      `;
+
+  if (href) {
+    return (
+      <Link href={href} className={`${className} block text-center`}>
+        {children}
+      </Link>
+    );
+  }
+
+  return (
+    <button className={className} onClick={onClick}>
       {children}
     </button>
   );

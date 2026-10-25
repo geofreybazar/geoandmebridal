@@ -16,19 +16,20 @@ interface FooterProps {
 const Footer = ({ session, setOpen }: FooterProps) => {
   return (
     <SheetFooter className='pt-0'>
-      <Link href='/appointment' onClick={() => setOpen(false)}>
-        <Button
-          variant='outline'
-          className='
+      <Button
+        asChild
+        variant='outline'
+        className='
         w-full
         border-[#C9B38C]
         text-[#9C8577]
         hover:bg-[#F8F3EC]
       '
-        >
+      >
+        <Link href='/appointment' onClick={() => setOpen(false)}>
           Book Appointment
-        </Button>
-      </Link>
+        </Link>
+      </Button>
 
       {session ? (
         <Button

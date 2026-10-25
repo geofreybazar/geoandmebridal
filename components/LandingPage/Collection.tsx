@@ -9,8 +9,6 @@ import Image4 from "@/assets/CollectionSlider/4.jpg";
 import Image5 from "@/assets/CollectionSlider/5.jpg";
 import Image6 from "@/assets/CollectionSlider/6.jpg";
 
-import Link from "next/link";
-
 const images = [Image1, Image2, Image3, Image4, Image5, Image6];
 
 const Collection = () => {
@@ -46,9 +44,9 @@ const Collection = () => {
 
       {/* CTA */}
       <div className='flex justify-center mt-12'>
-        <Link href='/collection' className='w-full sm:w-auto'>
-          <MochaContainedButton>View Full Collection</MochaContainedButton>
-        </Link>
+        <div className='w-full sm:w-auto'>
+          <MochaContainedButton href='/collection'>View Full Collection</MochaContainedButton>
+        </div>
       </div>
     </section>
   );

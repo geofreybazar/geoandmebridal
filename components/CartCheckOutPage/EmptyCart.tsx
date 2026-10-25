@@ -1,5 +1,4 @@
 import MochaContainedButton from "../SharedComponents/ButtonComponents/MochaContainedButton";
-import Link from "next/link";
 
 const EmptyCart = () => {
   return (
@@ -17,9 +16,9 @@ const EmptyCart = () => {
       </p>
 
       {/* CTA */}
-      <Link href='/shop'>
-        <MochaContainedButton>Explore Collection</MochaContainedButton>
-      </Link>
+      <div>
+        <MochaContainedButton href='/shop'>Explore Collection</MochaContainedButton>
+      </div>
     </div>
   );
 };

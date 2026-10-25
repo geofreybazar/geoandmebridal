@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { title, paragraph } from "@/utils/fonts/fonts";
 
 import MochaContainedButton from "@/components/SharedComponents/ButtonComponents/MochaContainedButton";
@@ -37,13 +36,13 @@ export default function AppointmentSuccessPage() {
 
         {/* Actions */}
         <div className='flex flex-col sm:flex-row gap-4 justify-center'>
-          <Link href='/collection'>
-            <MochaContainedButton>View Collections</MochaContainedButton>
-          </Link>
+          <div>
+            <MochaContainedButton href='/collection'>View Collections</MochaContainedButton>
+          </div>
 
-          <Link href='/brides'>
-            <OutlinedMochaButton>See Real Brides</OutlinedMochaButton>
-          </Link>
+          <div>
+            <OutlinedMochaButton href='/brides'>See Real Brides</OutlinedMochaButton>
+          </div>
         </div>
       </section>
     </main>

@@ -33,13 +33,13 @@ const NotFoundContent = () => {
 
         {/* Actions */}
         <div className='mt-10 flex flex-col sm:flex-row gap-4 sm:gap-6 w-full sm:w-auto'>
-          <Link href='/' className='w-full sm:w-auto'>
-            <MochaContainedButton>Back to Home</MochaContainedButton>
-          </Link>
+          <div className='w-full sm:w-auto'>
+            <MochaContainedButton href='/'>Back to Home</MochaContainedButton>
+          </div>
 
-          <Link href='/shop' className='w-full sm:w-auto'>
-            <OutlinedMochaButton>Visit the Shop</OutlinedMochaButton>
-          </Link>
+          <div className='w-full sm:w-auto'>
+            <OutlinedMochaButton href='/shop'>Visit the Shop</OutlinedMochaButton>
+          </div>
         </div>
 
         <Link

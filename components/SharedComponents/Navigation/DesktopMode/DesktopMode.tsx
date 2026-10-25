@@ -53,9 +53,9 @@ const DesktopMode = ({ links, pathname }: DesktopModeProps) => {
       <div className='flex gap-5 lg:text-lg items-center h-full'>
         <OpenCart />
         <LoginSignupButton />
-        <Link href='/appointment'>
-          <OutlinedMochaButton>Book Appointment</OutlinedMochaButton>
-        </Link>
+        <div>
+          <OutlinedMochaButton href='/appointment'>Book Appointment</OutlinedMochaButton>
+        </div>
       </div>
     </div>
   );

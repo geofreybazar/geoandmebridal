@@ -5,20 +5,17 @@ import { Button } from "@/components/ui/button";
 const Actions = () => {
   return (
     <div className='flex flex-col sm:flex-row justify-center gap-4 pt-4'>
-      <Link href='/myprofile'>
-        <Button
-          size='lg'
-          className='bg-warmTaupe hover:bg-deepMocha text-white rounded-xl'
-        >
-          Back to Dashboard
-        </Button>
-      </Link>
+      <Button
+        asChild
+        size='lg'
+        className='bg-warmTaupe hover:bg-deepMocha text-white rounded-xl'
+      >
+        <Link href='/myprofile'>Back to Dashboard</Link>
+      </Button>
 
-      <Link href='/myprofile/paymentorders'>
-        <Button size='lg' variant='outline' className='rounded-xl'>
-          View Payment History
-        </Button>
-      </Link>
+      <Button asChild size='lg' variant='outline' className='rounded-xl'>
+        <Link href='/myprofile/paymentorders'>View Payment History</Link>
+      </Button>
     </div>
   );
 };

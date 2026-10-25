@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 import { useQueryClient } from "@tanstack/react-query";
@@ -17,6 +18,7 @@ import DeliveryDetails from "./DeliveryDetails/DeliveryDetails";
 import PaymentDetails from "./PaymentDetails/PaymentDetails";
 import EmptyCart from "./EmptyCart";
 import LoadingCheckoutPage from "./LoadingCheckoutPage";
+import CartLoadError from "./CartLoadError";
 import { CheckOut } from "@/actions/checkout";
 import { toast } from "sonner";
 
@@ -25,9 +27,12 @@ const CheckOutPage = () => {
   const router = useRouter();
   const { data: session, status } = useSession();
 
-  const { cartItems: fetchedCartItems, isLoading } = useGetClientCart(
-    session?.user.id || "",
-  );
+  const {
+    cartItems: fetchedCartItems,
+    isLoading,
+    isError,
+    refetch,
+  } = useGetClientCart(session?.user.id || "");
 
   const cartItems = fetchedCartItems?.items ?? [];
 
@@ -51,7 +56,18 @@ const CheckOutPage = () => {
     },
   });
 
-  const { handleSubmit } = methods;
+  const { handleSubmit, getValues, setValue } = methods;
+
+  // defaultValues are read once, before the session has loaded on a page
+  // reload: fill the contact fields when it arrives, unless already typed
+  const firstName = session?.user.firstName;
+  const lastName = session?.user.lastName;
+  const email = session?.user.email;
+  useEffect(() => {
+    if (firstName && !getValues("firstName")) setValue("firstName", firstName);
+    if (lastName && !getValues("lastName")) setValue("lastName", lastName);
+    if (email && !getValues("emailAddress")) setValue("emailAddress", email);
+  }, [firstName, lastName, email, getValues, setValue]);
 
   const onSubmit = async (data: DeliveryDetailsOutput) => {
     const items = cartItems.map((item) => ({
@@ -130,8 +146,9 @@ const CheckOutPage = () => {
     }
   };
 
-  if (status === "loading") return <LoadingCheckoutPage />;
-  if (!isLoading && cartItems.length === 0) return <EmptyCart />;
+  if (status === "loading" || isLoading) return <LoadingCheckoutPage />;
+  if (isError) return <CartLoadError onRetry={() => refetch()} />;
+  if (cartItems.length === 0) return <EmptyCart />;
 
   return (
     <div>

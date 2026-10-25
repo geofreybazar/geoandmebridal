@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { title } from "@/utils/fonts/fonts";
 
 import OutlinedMochaButton from "../SharedComponents/ButtonComponents/OutlinedMochaButton";
@@ -42,13 +41,13 @@ const Hero = () => {
 
         {/* CTA */}
         <div className='flex flex-col sm:flex-row gap-4 sm:gap-6 w-full sm:w-auto'>
-          <Link href='/appointment' className='w-full sm:w-auto'>
-            <OutlinedMochaButton>Book Appointment</OutlinedMochaButton>
-          </Link>
+          <div className='w-full sm:w-auto'>
+            <OutlinedMochaButton href='/appointment'>Book Appointment</OutlinedMochaButton>
+          </div>
 
-          <Link href='/shop' className='w-full sm:w-auto'>
+          <div className='w-full sm:w-auto'>
             <HeroButton />
-          </Link>
+          </div>
         </div>
       </div>
     </section>

@@ -1,4 +1,3 @@
-import Link from "next/link";
 import MochaContainedButton from "@/components/SharedComponents/ButtonComponents/MochaContainedButton";
 import { title } from "@/utils/fonts/fonts";
 import TestimonialCard from "./TestimonialCard";
@@ -37,9 +36,9 @@ const Testimonials = async () => {
       </div>
 
       <div className='mt-8 block md:flex md:justify-center'>
-        <Link href='/testimonials'>
-          <MochaContainedButton>Read more testimonials</MochaContainedButton>
-        </Link>
+        <div>
+          <MochaContainedButton href='/testimonials'>Read more testimonials</MochaContainedButton>
+        </div>
       </div>
     </section>
   );

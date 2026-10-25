@@ -1,5 +1,4 @@
 import Image from "next/image";
-import Link from "next/link";
 import { title, paragraph } from "@/utils/fonts/fonts";
 import OutlinedMochaButton from "../SharedComponents/ButtonComponents/OutlinedMochaButton";
 import { SHOP_CATEGORIES } from "@/utils/constants/shop";
@@ -34,9 +33,9 @@ const CategoryGrid = () => {
             </p>
 
             <div className='mt-4'>
-              <Link href={cat.link}>
-                <OutlinedMochaButton>{cat.cta}</OutlinedMochaButton>
-              </Link>
+              <div>
+                <OutlinedMochaButton href={cat.link}>{cat.cta}</OutlinedMochaButton>
+              </div>
             </div>
           </div>
         </div>

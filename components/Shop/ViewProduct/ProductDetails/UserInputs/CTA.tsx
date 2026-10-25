@@ -1,4 +1,3 @@
-import Link from "next/link";
 import AddToCartButton from "@/components/SharedComponents/ButtonComponents/AddToCart/AddToCartButton";
 import OutlinedMochaButton from "@/components/SharedComponents/ButtonComponents/OutlinedMochaButton";
 
@@ -18,9 +17,9 @@ const CTA = ({ product, selectedSize, selectedQuantity }: CTAProps) => {
         selectedSize={selectedSize}
         selectedQuantity={selectedQuantity}
       />
-      <Link href='/appointment'>
-        <OutlinedMochaButton>Book Fitting</OutlinedMochaButton>
-      </Link>
+      <div>
+        <OutlinedMochaButton href='/appointment'>Book Fitting</OutlinedMochaButton>
+      </div>
     </div>
   );
 };

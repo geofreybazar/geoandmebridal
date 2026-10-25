@@ -8,6 +8,7 @@ const useGetClientCart = (clientId: string) => {
     isFetching,
     isError,
     error,
+    refetch,
   } = useQuery({
     queryKey: ["cartItems", clientId],
     // Server action: the cart of the signed-in client
@@ -25,6 +26,7 @@ const useGetClientCart = (clientId: string) => {
     isError,
     error,
     isFetching,
+    refetch,
   };
 };
 

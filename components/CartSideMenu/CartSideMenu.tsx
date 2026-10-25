@@ -1,22 +1,27 @@
 "use client";
 
-import { useSession } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 import useGetClientCart from "@/hooks/cart/useGetClientCart";
 
 import { SheetContent } from "@/components/ui/sheet";
 import { Separator } from "@/components/ui/separator";
+import { Spinner } from "@/components/ui/spinner";
 
 import CartItems from "./CartItems";
 import CartHeader from "./CartHeader";
 import CartFooter from "./CartFooter";
 import EmptyCart from "./EmptyCart";
+import CartMessage from "./CartMessage";
 
 const CartSideMenu = () => {
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
 
-  const { cartItems: fetchedCartItems, isLoading } = useGetClientCart(
-    session?.user.id || "",
-  );
+  const {
+    cartItems: fetchedCartItems,
+    isLoading,
+    isError,
+    refetch,
+  } = useGetClientCart(session?.user.id || "");
 
   const cartItems = fetchedCartItems?.items ?? [];
   const isEmpty = !cartItems || cartItems.length === 0;
@@ -26,10 +31,22 @@ const CartSideMenu = () => {
       {/* ---------- HEADER ---------- */}
       <CartHeader />
 
-      {isLoading ? (
+      {status === "loading" || isLoading ? (
         <div className='flex-1 flex items-center justify-center'>
-          Loading...
+          <Spinner className='size-6 text-mocha' />
         </div>
+      ) : status === "unauthenticated" ? (
+        <CartMessage
+          message='Sign in to see your shopping bag.'
+          action='Sign In'
+          onAction={() => signIn()}
+        />
+      ) : isError ? (
+        <CartMessage
+          message="We couldn't load your shopping bag."
+          action='Try Again'
+          onAction={() => refetch()}
+        />
       ) : isEmpty ? (
         <EmptyCart />
       ) : (

@@ -1,10 +1,13 @@
+import Link from "next/link";
 import { paragraph } from "@/utils/fonts/fonts";
 
 const HeroButton = () => {
   return (
-    <button
+    <Link
+      href='/shop'
       className={`
         ${paragraph.className}
+        block text-center
         w-full
         rounded-md
         border border-champagneGold
@@ -19,7 +22,7 @@ const HeroButton = () => {
       `}
     >
       Shop the Collection
-    </button>
+    </Link>
   );
 };
 

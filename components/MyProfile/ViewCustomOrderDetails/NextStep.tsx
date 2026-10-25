@@ -49,6 +49,7 @@ const NextStep = async ({ customorder }: { customorder: CustomOrder }) => {
 
         {pendingPaymentRequest && (
           <Button
+            asChild
             size='sm'
             className='w-full rounded-xl px-4 bg-warmTaupe hover:bg-deepMocha text-white'
           >

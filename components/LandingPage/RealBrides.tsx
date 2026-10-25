@@ -1,4 +1,3 @@
-import Link from "next/link";
 import SwiperComponent from "../SharedComponents/SwiperComponent";
 import MochaContainedButton from "../SharedComponents/ButtonComponents/MochaContainedButton";
 import { title, paragraph } from "@/utils/fonts/fonts";
@@ -44,9 +43,9 @@ const RealBrides = () => {
 
           {/* CTA */}
           <div className='mt-8 w-full sm:w-auto'>
-            <Link href='/brides'>
-              <MochaContainedButton>View Real Weddings</MochaContainedButton>
-            </Link>
+            <div>
+              <MochaContainedButton href='/brides'>View Real Weddings</MochaContainedButton>
+            </div>
           </div>
         </div>
 

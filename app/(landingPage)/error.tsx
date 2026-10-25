@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { title, paragraph } from "@/utils/fonts/fonts";
 import MochaContainedButton from "@/components/SharedComponents/ButtonComponents/MochaContainedButton";
 import OutlinedMochaButton from "@/components/SharedComponents/ButtonComponents/OutlinedMochaButton";
@@ -40,9 +39,9 @@ export default function ErrorPage({ reset }: { reset: () => void }) {
             <MochaContainedButton onClick={reset}>Try Again</MochaContainedButton>
           </div>
 
-          <Link href='/' className='w-full sm:w-auto'>
-            <OutlinedMochaButton>Back to Home</OutlinedMochaButton>
-          </Link>
+          <div className='w-full sm:w-auto'>
+            <OutlinedMochaButton href='/'>Back to Home</OutlinedMochaButton>
+          </div>
         </div>
 
         <p className='mt-10 text-[10px] tracking-[0.35em] uppercase text-black/50'>

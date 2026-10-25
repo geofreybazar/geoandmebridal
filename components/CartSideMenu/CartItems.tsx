@@ -4,6 +4,7 @@ import Image from "next/image";
 import { Loader2, Trash2 } from "lucide-react";
 
 import { Items } from "@/types/cart";
+import { formattedValue } from "@/utils/currency/currency";
 
 interface CartItemsProps {
   cartItems: Items[];
@@ -100,13 +101,7 @@ const CartItems = ({ cartItems, cartId }: CartItemsProps) => {
               </div>
 
               <p className='font-semibold text-sm mt-2'>
-                ₱
-                {(Number(item.price) * item.quantity).toLocaleString(
-                  undefined,
-                  {
-                    minimumFractionDigits: 2,
-                  },
-                )}
+                {formattedValue(Number(item.price) * item.quantity)}
               </p>
             </div>
           </div>

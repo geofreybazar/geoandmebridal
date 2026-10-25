@@ -14,13 +14,19 @@ const Footer = ({ payment }: { payment: PaymentRequest }) => {
 
       {/* Right Action */}
       {isPaid ? (
-        <Button variant='outline' size='sm' className='rounded-xl px-4'>
+        <Button
+          asChild
+          variant='outline'
+          size='sm'
+          className='rounded-xl px-4'
+        >
           <Link href={`/myprofile/paymentorders/receipt/${payment._id}`}>
             View Receipt
           </Link>
         </Button>
       ) : (
         <Button
+          asChild
           size='sm'
           className='rounded-xl px-4 bg-warmTaupe hover:bg-deepMocha text-white'
         >

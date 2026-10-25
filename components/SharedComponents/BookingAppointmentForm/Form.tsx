@@ -52,7 +52,7 @@ const Form = ({ step, setStep, userProfile }: FormProps) => {
     const result = await submitNewAppointment(newData);
 
     if (result.success) {
-      router.push("/appoinmentsuccess");
+      router.push("/appointmentsuccess");
       return;
     }
 

@@ -1,16 +1,18 @@
 import { ReactNode } from "react";
+import Link from "next/link";
 import { paragraph } from "@/utils/fonts/fonts";
 
 const MochaContainedButton = ({
   onClick,
+  href,
   children,
 }: {
   onClick?: () => void;
+  // Renders a link styled as this button (never a <button> inside a link)
+  href?: string;
   children: ReactNode;
 }) => {
-  return (
-    <button
-      className={`
+  const className = `
         ${paragraph.className}
         rounded-md
         border border-mocha
@@ -22,9 +24,18 @@ const MochaContainedButton = ({
         hover:bg-mocha/90
         hover:-translate-y-0.5
         w-full
-      `}
-      onClick={onClick}
-    >
+      `;
+
+  if (href) {
+    return (
+      <Link href={href} className={`${className} block text-center`}>
+        {children}
+      </Link>
+    );
+  }
+
+  return (
+    <button className={className} onClick={onClick}>
       {children}
     </button>
   );
