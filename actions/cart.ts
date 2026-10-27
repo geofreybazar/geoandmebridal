@@ -1,6 +1,11 @@
 "use server";
 
-import { AddItemToCart, GetClientCart, RemoveItemFromCart } from "@/services/cart";
+import {
+  AddItemToCart,
+  GetClientCart,
+  RemoveItemFromCart,
+  UpdateCartItem,
+} from "@/services/cart";
 import { requireClientId } from "@/lib/backendAuth";
 import { Items } from "@/types/cart";
 
@@ -42,6 +47,27 @@ export const getCart = async () => {
 export const removeItem = async (data: { productSku: string; cartId: string }) => {
   try {
     const result = await RemoveItemFromCart(data);
+
+    return {
+      success: true,
+      result,
+    };
+  } catch (error: unknown) {
+    return {
+      success: false,
+      error:
+        error instanceof Error ? error.message : "Unexpected server error.",
+    };
+  }
+};
+
+export const updateItem = async (data: {
+  itemId: string;
+  variantId: string;
+  quantity: number;
+}) => {
+  try {
+    const result = await UpdateCartItem(data);
 
     return {
       success: true,

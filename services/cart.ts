@@ -54,6 +54,36 @@ export const AddItemToCart = async (data: Items): Promise<CartType> => {
   }
 };
 
+export const UpdateCartItem = async ({
+  itemId,
+  variantId,
+  quantity,
+}: {
+  itemId: string;
+  variantId: string;
+  quantity: number;
+}): Promise<CartType> => {
+  const response = await fetch(`${API_URL}/items/${itemId}`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+      ...(await clientAuthHeaders()),
+    },
+    body: JSON.stringify({ variantId, quantity }),
+  });
+
+  if (!response.ok) {
+    const errorBody = await response.json();
+    const errorMessage =
+      errorBody?.error || response.statusText || "Unknown server error";
+
+    console.error("API fetch failed:", response.status, response.statusText);
+    throw new Error(errorMessage);
+  }
+
+  return response.json();
+};
+
 export const RemoveItemFromCart = async ({
   productSku,
   cartId,

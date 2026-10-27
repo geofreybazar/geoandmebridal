@@ -1,5 +1,7 @@
 import { useState } from "react";
 import useRemoveItemFromCart from "@/hooks/cart/useRemoveItemFromCart";
+import useUpdateCartItem from "@/hooks/cart/useUpdateCartItem";
+import CartItemOptions from "./CartItemOptions";
 import Image from "next/image";
 import { Loader2, Trash2 } from "lucide-react";
 
@@ -15,7 +17,34 @@ const CartItems = ({ cartItems, cartId }: CartItemsProps) => {
   const [removingSku, setRemovingSku] = useState<string | null>(null);
   const [errorSku, setErrorSku] = useState<string | null>(null);
 
+  const [updatingId, setUpdatingId] = useState<string | null>(null);
+  const [updateError, setUpdateError] = useState<{
+    itemId: string;
+    message: string;
+  } | null>(null);
+
   const { removeItemFromCart, isPending } = useRemoveItemFromCart();
+  const { updateCartItem } = useUpdateCartItem();
+
+  const handleUpdateItem = async (
+    itemId: string,
+    variantId: string,
+    quantity: number,
+  ) => {
+    try {
+      setUpdateError(null);
+      setUpdatingId(itemId);
+      await updateCartItem({ itemId, variantId, quantity });
+    } catch (error) {
+      setUpdateError({
+        itemId,
+        message:
+          error instanceof Error ? error.message : "Couldn't update this item",
+      });
+    } finally {
+      setUpdatingId(null);
+    }
+  };
 
   const handleRemoveItem = async (sku: string) => {
     try {
@@ -42,6 +71,7 @@ const CartItems = ({ cartItems, cartId }: CartItemsProps) => {
       {cartItems.map((item) => {
         const isRemoving = isPending && removingSku === item.sku;
         const hasError = errorSku === item.sku;
+        const isUpdating = !!item._id && updatingId === item._id;
 
         return (
           <div
@@ -49,7 +79,7 @@ const CartItems = ({ cartItems, cartId }: CartItemsProps) => {
             className={`
               flex gap-4 p-3 rounded-xl bg-white border shadow-sm relative
               transition-opacity
-              ${isRemoving ? "opacity-50 pointer-events-none" : ""}
+              ${isRemoving || isUpdating ? "opacity-50 pointer-events-none" : ""}
             `}
           >
             {hasError && (
@@ -91,13 +121,25 @@ const CartItems = ({ cartItems, cartId }: CartItemsProps) => {
                   {item.name}
                 </h4>
 
-                <p className='text-xs text-muted-foreground mt-1'>
-                  SKU: {item.sku}
-                </p>
+                {item._id ? (
+                  <CartItemOptions
+                    item={item}
+                    disabled={isUpdating}
+                    onChange={(variantId, quantity) =>
+                      handleUpdateItem(item._id!, variantId, quantity)
+                    }
+                  />
+                ) : (
+                  <p className='text-xs text-muted-foreground mt-1'>
+                    Quantity: {item.quantity}
+                  </p>
+                )}
 
-                <p className='text-xs text-muted-foreground'>
-                  Quantity: {item.quantity}
-                </p>
+                {updateError && updateError.itemId === item._id && (
+                  <p className='text-xs text-red-500 mt-1' role='alert'>
+                    {updateError.message}
+                  </p>
+                )}
               </div>
 
               <p className='font-semibold text-sm mt-2'>

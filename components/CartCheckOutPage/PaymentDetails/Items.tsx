@@ -7,6 +7,7 @@ const Items = ({ cartItems }: { cartItems: Items[] }) => {
     <div className='space-y-5'>
       {cartItems.map((item) => {
         const total = Number(item.price) * item.quantity;
+        const selected = item.options?.find((o) => o._id === item.variantId);
 
         return (
           <div
@@ -31,7 +32,18 @@ const Items = ({ cartItems }: { cartItems: Items[] }) => {
                 </h3>
 
                 <div className='mt-1 text-xs sm:text-sm text-muted-foreground space-y-1'>
-                  <p>SKU: {item.sku}</p>
+                  {selected ? (
+                    <p className='flex items-center gap-1.5'>
+                      <span
+                        className='inline-block w-3.5 h-3.5 rounded-full border'
+                        style={{ backgroundColor: selected.color.hex }}
+                        aria-hidden='true'
+                      />
+                      Size {selected.size}
+                    </p>
+                  ) : (
+                    <p>SKU: {item.sku}</p>
+                  )}
                   <p>Qty: {item.quantity}</p>
                 </div>
               </div>

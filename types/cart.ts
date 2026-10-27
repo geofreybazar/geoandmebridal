@@ -1,4 +1,14 @@
+// Another colour/size of the item's product (sent with the cart)
+export interface CartOption {
+  _id: string;
+  color: { hex: string };
+  size: string;
+  availableStock: number;
+}
+
 export interface Items {
+  _id?: string;
+  options?: CartOption[];
   productId: string;
   variantId: string;
   sku: string;
