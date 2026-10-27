@@ -1,5 +1,13 @@
+import type { Metadata } from "next";
 import PageHeader from "@/components/SharedComponents/PageHeader/PageHeader";
 import { paragraph, title } from "@/utils/fonts/fonts";
+
+export const metadata: Metadata = {
+  title: "Contact",
+  description:
+    "Get in touch with GEO + Me Bridal about bespoke wedding gowns, entourage attire, fittings and orders.",
+  alternates: { canonical: "/contact" },
+};
 
 const ContactPage = () => {
   return (

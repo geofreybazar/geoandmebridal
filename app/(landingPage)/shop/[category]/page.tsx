@@ -1,5 +1,26 @@
+import type { Metadata } from "next";
 import { title, paragraph } from "@/utils/fonts/fonts";
 import CategoryPageClient from "@/components/Shop/CategoryPageClient";
+import { SHOP_CATEGORIES } from "@/utils/constants/shop";
+
+const formatCategory = (category: string) =>
+  category.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
+
+export async function generateMetadata({
+  params,
+}: Pick<ProductPageProps, "params">): Promise<Metadata> {
+  const { category } = await params;
+  const known = SHOP_CATEGORIES.find((c) => c.link === `/shop/${category}`);
+  const name = known?.title ?? formatCategory(category);
+
+  return {
+    title: `${name} | Shop`,
+    description:
+      known?.description ?? `Browse ${name.toLowerCase()} from GEO + Me Bridal.`,
+    // Filters and pages share the category's address
+    alternates: { canonical: `/shop/${category}` },
+  };
+}
 
 interface ProductPageProps {
   params: Promise<{ category: string }>;
@@ -9,9 +30,7 @@ interface ProductPageProps {
 const ProductPage = async ({ params, searchParams }: ProductPageProps) => {
   const { category } = await params;
 
-  const formattedCategory = category
-    .replace(/-/g, " ")
-    .replace(/\b\w/g, (c) => c.toUpperCase());
+  const formattedCategory = formatCategory(category);
 
   return (
     <main>

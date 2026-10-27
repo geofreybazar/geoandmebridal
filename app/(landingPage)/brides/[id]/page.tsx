@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
@@ -5,6 +6,27 @@ import { GetBride } from "@/services/brides";
 import { paragraph, title } from "@/utils/fonts/fonts";
 import ViewBrideGrid from "@/components/Brides/ViewBrideGrid";
 import BreadCrumbsComponent from "@/components/SharedComponents/BreadCrumbsComponent/BreadCrumbsComponent";
+
+type Params = { params: Promise<{ id: string }> };
+
+// First name only, no wedding date, as on the page itself
+export async function generateMetadata({ params }: Params): Promise<Metadata> {
+  const { id } = await params;
+  const bride = await GetBride(id);
+  if (!bride) return {};
+
+  const firstName = bride.bridesName.split(" ")[0];
+  const venue = bride.details?.venue;
+
+  return {
+    title: `${firstName}, a Real Bride`,
+    description: `${firstName}'s wedding${venue ? ` at ${venue}` : ""} in a bespoke GEO + Me Bridal gown. See the photos.`,
+    alternates: { canonical: `/brides/${id}` },
+    openGraph: {
+      images: bride.photos?.[0]?.imageInfo?.url ? [bride.photos[0].imageInfo.url] : [],
+    },
+  };
+}
 
 const ViewBridePage = async ({
   params,

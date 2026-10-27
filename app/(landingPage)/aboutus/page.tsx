@@ -1,8 +1,16 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import { title, paragraph } from "@/utils/fonts/fonts";
 import PageHeader from "@/components/SharedComponents/PageHeader/PageHeader";
 import GEOandMeShop from "@/assets/AboutUs/shop.jpg";
 import Designer from "@/assets/AboutUs/designer.jpg";
+
+export const metadata: Metadata = {
+  title: "About Us",
+  description:
+    "GEO + Me Bridal is a couture atelier in the Philippines creating bespoke wedding gowns that reflect individuality, craftsmanship and timeless elegance.",
+  alternates: { canonical: "/aboutus" },
+};
 
 const AboutUsPage = () => {
   return (

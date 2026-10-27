@@ -1,8 +1,27 @@
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { paragraph, title } from "@/utils/fonts/fonts";
 import { GetCollectionsImages } from "@/services/collections";
 import ViewCollectionGrid from "@/components/CollectionPage/ViewCollectionGrid";
 import Link from "next/link";
+import { excerpt } from "@/lib/seo";
+
+type Params = { params: Promise<{ id: string }> };
+
+export async function generateMetadata({ params }: Params): Promise<Metadata> {
+  const { id } = await params;
+  const collection = await GetCollectionsImages(id);
+  if (!collection) return {};
+
+  return {
+    title: `${collection.collectionName} Collection`,
+    description:
+      excerpt(collection.description) ||
+      `The ${collection.collectionName} bridal collection by GEO + Me Bridal.`,
+    alternates: { canonical: `/collection/${id}` },
+    openGraph: { images: collection.coverImage?.url ? [collection.coverImage.url] : [] },
+  };
+}
 
 const ViewCollectionPage = async ({
   params,
@@ -20,7 +39,7 @@ const ViewCollectionPage = async ({
   return (
     <main>
       {/* Header */}
-      <section>
+      <section className='pb-16'>
         <p className='text-xs tracking-[0.35em] uppercase text-black/60 mb-4'>
           Bridal Collection
         </p>
@@ -33,11 +52,11 @@ const ViewCollectionPage = async ({
 
         <div className='w-24 h-px mx-auto my-8 bg-gradient-to-r from-transparent via-champagneGold to-transparent' />
 
-        {collection.collectionName && (
+        {collection.description && (
           <p
             className={`${paragraph.className} text-sm md:text-lg text-black/70`}
           >
-            {collection.collectionName}
+            {collection.description}
           </p>
         )}
       </section>

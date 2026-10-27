@@ -1,7 +1,15 @@
+import type { Metadata } from "next";
 import { Suspense } from "react";
 import CollectionsFallback from "@/components/CollectionPage/CollectionsFallback";
 import Collections from "@/components/CollectionPage/Collections";
 import PageHeader from "@/components/SharedComponents/PageHeader/PageHeader";
+
+export const metadata: Metadata = {
+  title: "Bridal Collections",
+  description:
+    "Browse the bridal collections of GEO + Me Bridal: each one a visual story of gowns, thoughtfully crafted and presented as a timeless album.",
+  alternates: { canonical: "/collection" },
+};
 
 const CollectionPage = () => {
   return (

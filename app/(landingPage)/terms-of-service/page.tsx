@@ -1,4 +1,12 @@
+import type { Metadata } from "next";
 import { title, paragraph } from "@/utils/fonts/fonts";
+
+export const metadata: Metadata = {
+  title: "Terms of Service",
+  description:
+    "Terms for orders, payments, delivery, pickup, returns and appointments at GEO + Me Bridal.",
+  alternates: { canonical: "/terms-of-service" },
+};
 
 const TermsOfServicePage = () => {
   return (

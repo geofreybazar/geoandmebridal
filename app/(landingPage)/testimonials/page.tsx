@@ -1,6 +1,14 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import { title, paragraph } from "@/utils/fonts/fonts";
 import { GetTestimonials } from "@/services/testimonilas";
+
+export const metadata: Metadata = {
+  title: "Testimonials",
+  description:
+    "Love stories and reviews from brides who chose GEO + Me Bridal for their wedding gown.",
+  alternates: { canonical: "/testimonials" },
+};
 
 const TestimonialsPage = async () => {
   const testimonials = await GetTestimonials();

@@ -1,4 +1,12 @@
+import type { Metadata } from "next";
 import { title, paragraph } from "@/utils/fonts/fonts";
+
+export const metadata: Metadata = {
+  title: "Privacy Policy",
+  description:
+    "How GEO + Me Bridal collects, uses and protects your personal information.",
+  alternates: { canonical: "/privacy-policy" },
+};
 
 const PrivacyPolicyPage = () => {
   return (

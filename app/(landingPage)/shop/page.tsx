@@ -1,6 +1,14 @@
+import type { Metadata } from "next";
 import PageHeader from "@/components/SharedComponents/PageHeader/PageHeader";
 
 import CategoryGrid from "@/components/Shop/CategoryRow";
+
+export const metadata: Metadata = {
+  title: "Shop",
+  description:
+    "Ready-to-wear bridal gowns, entourage dresses, formalwear, menswear and accessories from GEO + Me Bridal in the Philippines.",
+  alternates: { canonical: "/shop" },
+};
 
 const ShopPage = () => {
   return (
