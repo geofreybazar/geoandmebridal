@@ -45,14 +45,15 @@ const AboutMe = () => {
         </div>
 
         {/* Image */}
-        <div className='md:w-1/2 flex justify-center'>
-          <div className='relative w-[300px] aspect-[3/4] md:w-[360px] lg:w-[420px] rounded-md '>
+        <div className='w-full md:w-1/2 flex justify-center'>
+          {/* Full width on phones, like the other home page photos */}
+          <div className='relative w-full aspect-[3/4] md:w-[360px] lg:w-[420px] rounded-md'>
             <Image
               src={Medy}
               alt='Medy G. Magsipoc-Bazar'
               fill
-              sizes='(max-width: 768px) 300px, (max-width: 1024px) 360px, 420px'
-              className='object-cover'
+              sizes='(max-width: 768px) 100vw, (max-width: 1024px) 360px, 420px'
+              className='rounded-md object-cover'
             />
           </div>
         </div>

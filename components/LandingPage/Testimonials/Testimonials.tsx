@@ -1,6 +1,6 @@
 import MochaContainedButton from "@/components/SharedComponents/ButtonComponents/MochaContainedButton";
 import { title } from "@/utils/fonts/fonts";
-import TestimonialCard from "./TestimonialCard";
+import TestimonialSpotlight from "./TestimonialSpotlight";
 import { GetTestimonials } from "@/services/testimonilas";
 
 const Testimonials = async () => {
@@ -23,19 +23,9 @@ const Testimonials = async () => {
         </p>
       </div>
 
-      {/* Grid */}
-      <div className='grid grid-cols-1 md:grid-cols-3 gap-6'>
-        {testimonials.map((testimonial) => (
-          <TestimonialCard
-            key={testimonial._id}
-            name={testimonial.brideId.bridesName}
-            role={"Bride"}
-            message={testimonial.review}
-          />
-        ))}
-      </div>
+      <TestimonialSpotlight testimonials={testimonials} />
 
-      <div className='mt-8 block md:flex md:justify-center'>
+      <div className='mt-16 block md:flex md:justify-center'>
         <div>
           <MochaContainedButton href='/testimonials'>Read more testimonials</MochaContainedButton>
         </div>
